@@ -6,9 +6,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class User {
   @Id
   @SequenceGenerator(
@@ -45,65 +54,5 @@ public class User {
       nullable = false
   )
   private String avt;
-
-  public User(Long id, String name, LocalDate dateOfBirth, Boolean gender, String avt) {
-    this.id = id;
-    this.name = name;
-    this.dateOfBirth = dateOfBirth;
-    this.gender = gender;
-    this.avt = avt;
-  }
-
-  @Override
-  public String toString() {
-    return "User{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        ", dateOfBirth=" + dateOfBirth +
-        ", gender=" + gender +
-        ", avt='" + avt + '\'' +
-        '}';
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public LocalDate getDateOfBirth() {
-    return dateOfBirth;
-  }
-
-  public void setDateOfBirth(LocalDate dateOfBirth) {
-    this.dateOfBirth = dateOfBirth;
-  }
-
-  public Boolean getGender() {
-    return gender;
-  }
-
-  public void setGender(Boolean gender) {
-    this.gender = gender;
-  }
-
-  public String getAvt() {
-    return avt;
-  }
-
-  public void setAvt(String avt) {
-    this.avt = avt;
-  }
-
 
 }

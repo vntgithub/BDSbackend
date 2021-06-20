@@ -5,9 +5,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class Contact {
   @Id
   @SequenceGenerator(
@@ -33,7 +43,7 @@ public class Contact {
       name = "phone_number",
       nullable = false
   )
-  private String phonenumber;
+  private String phoneNumber;
   @Column(
       name = "user_id",
       nullable = false,
@@ -41,52 +51,7 @@ public class Contact {
   )
   private Long userId;
 
-  public Contact(Long id, String email, String phonenumber, Long userId) {
-    this.id = id;
-    this.email = email;
-    this.phonenumber = phonenumber;
-    this.userId = userId;
-  }
-  @Override
-  public String toString() {
-    return "Contact{" +
-        "id=" + id +
-        ", email='" + email + '\'' +
-        ", phonenumber='" + phonenumber + '\'' +
-        ", userId=" + userId +
-        '}';
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getPhonenumber() {
-    return phonenumber;
-  }
-
-  public void setPhonenumber(String phonenumber) {
-    this.phonenumber = phonenumber;
-  }
-
-  public Long getUserId() {
-    return userId;
-  }
-
-  public void setUserId(Long userId) {
-    this.userId = userId;
-  }
-
+  @OneToOne
+  @JoinColumn(name = "user_id", updatable = false, insertable = false)
+  private User user;
 }

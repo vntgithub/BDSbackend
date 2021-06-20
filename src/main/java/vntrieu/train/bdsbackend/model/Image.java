@@ -5,9 +5,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class Image {
   @Id
   @SequenceGenerator(
@@ -29,50 +40,11 @@ public class Image {
       nullable = false
   )
   private String url;
-  @Column(
-      name = "user_id",
-      updatable = false,
-      nullable = false
-  )
-  private Long productId;
 
-  @Override
-  public String toString() {
-    return "Image{" +
-        "id=" + id +
-        ", url='" + url + '\'' +
-        ", productId=" + productId +
-        '}';
-  }
-
-  public Long getProductId() {
-    return productId;
-  }
-
-  public void setProductId(Long productId) {
-    this.productId = productId;
-  }
-
-  public Image(Long id, String url, Long productId) {
-    this.id = id;
-    this.url = url;
-    this.productId = productId;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getUrl() {
-    return url;
-  }
-
-  public void setUrl(String url) {
-    this.url = url;
-  }
+  @ManyToOne
+  @JoinColumn(name = "product_id")
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private Product product;
 
 }

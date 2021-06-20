@@ -3,9 +3,19 @@ package vntrieu.train.bdsbackend.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class Account {
   @Id
   @Column(
@@ -18,39 +28,11 @@ public class Account {
       nullable = false
   )
   private String password;
-  @Column(
-      name = "user_id",
-      nullable = false
-  )
-  private  Long userId;
 
-  public Account(String username, String password) {
-    this.username = username;
-    this.password = password;
-  }
+  @OneToOne
+  @JoinColumn(name = "user_id")
+  private  User user;
 
-  @Override
-  public String toString() {
-    return "Account{" +
-        "username='" + username + '\'' +
-        ", password='" + password + '\'' +
-        '}';
-  }
 
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
 
 }

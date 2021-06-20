@@ -1,13 +1,28 @@
 package vntrieu.train.bdsbackend.model;
 
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class Product {
   @Id
   @SequenceGenerator(
@@ -44,98 +59,24 @@ public class Product {
       nullable = false
   )
   private String descreption;
-  @Column(
-      name = "address_id",
-      nullable = false
-  )
-  private Long addressId;
-  @Column(
-      name = "category_id",
-      nullable = false,
-      updatable = false
-  )
-  private Integer categoryId;
 
-  public Product() {
-  }
+  @OneToOne
+  @JoinColumn(name = "address_id")
+  private Address address;
 
-  public Product(Long id, String tiltle, Boolean lease, Integer price, String descreption,
-      Long addressId, Integer categoryId) {
-    this.id = id;
-    this.tiltle = tiltle;
-    this.lease = lease;
-    this.price = price;
-    this.descreption = descreption;
-    this.addressId = addressId;
-    this.categoryId = categoryId;
-  }
+  @ManyToOne
+  @JoinColumn(name = "category_id")
+  private Category category;
 
-  public Long getId() {
-    return id;
-  }
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private Collection<Image> images;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+  @ManyToOne
+  @JoinColumn(name = "unit_id")
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private Unit unit;
 
-  public String getTiltle() {
-    return tiltle;
-  }
-
-  public void setTiltle(String tiltle) {
-    this.tiltle = tiltle;
-  }
-
-  public Boolean getLease() {
-    return lease;
-  }
-
-  public void setLease(Boolean lease) {
-    this.lease = lease;
-  }
-
-  public Integer getPrice() {
-    return price;
-  }
-
-  public void setPrice(Integer price) {
-    this.price = price;
-  }
-
-  public String getDescreption() {
-    return descreption;
-  }
-
-  public void setDescreption(String descreption) {
-    this.descreption = descreption;
-  }
-
-  public Long getAddressId() {
-    return addressId;
-  }
-
-  public void setAddressId(Long addressId) {
-    this.addressId = addressId;
-  }
-
-  public Integer getCategoryId() {
-    return categoryId;
-  }
-
-  public void setCategoryId(Integer categoryId) {
-    this.categoryId = categoryId;
-  }
-
-  @Override
-  public String toString() {
-    return "Product{" +
-        "id=" + id +
-        ", tiltle='" + tiltle + '\'' +
-        ", lease=" + lease +
-        ", price=" + price +
-        ", descreption='" + descreption + '\'' +
-        ", addressId=" + addressId +
-        ", categoryId=" + categoryId +
-        '}';
-  }
 }

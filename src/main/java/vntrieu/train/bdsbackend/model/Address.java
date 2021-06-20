@@ -5,9 +5,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class Address {
   @Id
   @SequenceGenerator(
@@ -24,84 +35,22 @@ public class Address {
       updatable = false
   )
   private Long id;
-  @Column(
-      name = "street_id",
-      nullable = false
-  )
-  private Long streetId;
-  @Column(
-      name = "ward_id",
-      nullable = false
-  )
-  private Long wardId;
-  @Column(
-      name = "district_id",
-      nullable = false
-  )
-  private Long districtId;
-  @Column(
-      name = "provitecity_id",
-      nullable = false
-  )
-  private Integer provitecityId;
 
-  @Override
-  public String toString() {
-    return "Address{" +
-        "id=" + id +
-        ", streetId=" + streetId +
-        ", wardId=" + wardId +
-        ", districtId=" + districtId +
-        ", provitecityId=" + provitecityId +
-        '}';
-  }
+  @ManyToOne
+  @JoinColumn(name = "str_id")
+  private Street street;
 
-  public Long getId() {
-    return id;
-  }
+  @ManyToOne
+  @JoinColumn(name = "w_id")
+  private Ward ward;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+  @ManyToOne
+  @JoinColumn(name = "d_id")
+  private District district;
 
-  public Long getStreetId() {
-    return streetId;
-  }
+  @ManyToOne
+  @JoinColumn(name = "p_id")
+  private ProviteCity provite_city;
 
-  public void setStreetId(Long streetId) {
-    this.streetId = streetId;
-  }
 
-  public Long getWardId() {
-    return wardId;
-  }
-
-  public void setWardId(Long wardId) {
-    this.wardId = wardId;
-  }
-
-  public Long getDistrictId() {
-    return districtId;
-  }
-
-  public void setDistrictId(Long districtId) {
-    this.districtId = districtId;
-  }
-
-  public Integer getProvitecityId() {
-    return provitecityId;
-  }
-
-  public void setProvitecityId(Integer provitecityId) {
-    this.provitecityId = provitecityId;
-  }
-
-  public Address(Long id, Long streetId, Long wardId, Long districtId,
-      Integer provitecityId) {
-    this.id = id;
-    this.streetId = streetId;
-    this.wardId = wardId;
-    this.districtId = districtId;
-    this.provitecityId = provitecityId;
-  }
 }

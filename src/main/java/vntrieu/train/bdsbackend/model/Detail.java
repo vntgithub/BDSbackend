@@ -1,17 +1,29 @@
 package vntrieu.train.bdsbackend.model;
 
+import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.criteria.CriteriaBuilder.In;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 @Entity
-public class Detail {
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
+public class Detail implements Serializable {
   @Id
-  @Column(
-      name = "product_id",
-      updatable = false
-  )
-  private Long productId;
+  @OneToOne
+  @JoinColumn(name ="product_id", updatable = false, insertable = false)
+  private Product product;
   @Column(
       name = "frontispiece",
       nullable = false
@@ -39,73 +51,5 @@ public class Detail {
   private String legalInfor;
 
 
-  public Detail(Long productId, Integer frontispiece, Short numberOfFloors,
-      Short numberOfWC, String funiture, String legalInfor) {
-    this.productId = productId;
-    this.frontispiece = frontispiece;
-    this.numberOfFloors = numberOfFloors;
-    this.numberOfWC = numberOfWC;
-    this.funiture = funiture;
-    this.legalInfor = legalInfor;
-  }
 
-  public Long getProductId() {
-    return productId;
-  }
-
-  public void setProductId(Long productId) {
-    this.productId = productId;
-  }
-
-  public Integer getFrontispiece() {
-    return frontispiece;
-  }
-
-  public void setFrontispiece(Integer frontispiece) {
-    this.frontispiece = frontispiece;
-  }
-
-  public Short getNumberOfFloors() {
-    return numberOfFloors;
-  }
-
-  public void setNumberOfFloors(Short numberOfFloors) {
-    this.numberOfFloors = numberOfFloors;
-  }
-
-  public Short getNumberOfWC() {
-    return numberOfWC;
-  }
-
-  public void setNumberOfWC(Short numberOfWC) {
-    this.numberOfWC = numberOfWC;
-  }
-
-  public String getFuniture() {
-    return funiture;
-  }
-
-  public void setFuniture(String funiture) {
-    this.funiture = funiture;
-  }
-
-  public String getLegalInfor() {
-    return legalInfor;
-  }
-
-  public void setLegalInfor(String legalInfor) {
-    this.legalInfor = legalInfor;
-  }
-
-  @Override
-  public String toString() {
-    return "Detail{" +
-        "productId=" + productId +
-        ", frontispiece=" + frontispiece +
-        ", numberOfFloors=" + numberOfFloors +
-        ", numberOfWC=" + numberOfWC +
-        ", funiture='" + funiture + '\'' +
-        ", legalInfor='" + legalInfor + '\'' +
-        '}';
-  }
 }
