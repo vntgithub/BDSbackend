@@ -44,14 +44,15 @@ public class ProvinceCity {
       columnDefinition = "TEXT"
   )
   private String name;
-  @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private Collection<Address> address;
 
-  @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private List<District> districts;
+//  @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL)
+//  @EqualsAndHashCode.Exclude
+//  @ToString.Exclude
+//  private Collection<Address> address;
+//
+//  @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL)
+//  @EqualsAndHashCode.Exclude
+//  @ToString.Exclude
+//  private List<District> districts;
 
 }

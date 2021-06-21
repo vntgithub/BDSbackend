@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import vntrieu.train.bdsbackend.model.District;
+import vntrieu.train.bdsbackend.model.ProvinceCity;
 
 @NoArgsConstructor
 @AllArgsConstructor

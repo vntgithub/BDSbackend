@@ -45,19 +45,19 @@ public class District {
   )
   private String name;
 
-  @OneToMany(mappedBy = "district", cascade = CascadeType.ALL)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private Collection<Address> address;
+//  @OneToMany(mappedBy = "district", cascade = CascadeType.ALL)
+//  @EqualsAndHashCode.Exclude
+//  @ToString.Exclude
+//  private Collection<Address> address;
 
   @ManyToOne
   @JoinColumn(name = "p_c_id")
   @EqualsAndHashCode.Exclude
-  @ToString.Exclude
   private ProvinceCity provinceCity;
 
-  @OneToMany(mappedBy = "district", cascade = CascadeType.ALL)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private List<Ward> wards;
+//  @OneToMany(mappedBy = "district", cascade = CascadeType.ALL)
+//  @EqualsAndHashCode.Exclude
+//  @ToString.Exclude
+//  private List<Ward> wards;
+
 }

@@ -42,8 +42,8 @@ public class Unit {
   )
   private String name;
 
-  @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private Collection<Product> products;
+//  @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL)
+//  @EqualsAndHashCode.Exclude
+//  @ToString.Exclude
+//  private Collection<Product> products;
 }

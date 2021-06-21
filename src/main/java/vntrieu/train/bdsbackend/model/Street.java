@@ -45,10 +45,10 @@ public class Street {
   )
   private String name;
 
-  @OneToMany(mappedBy = "street", cascade = CascadeType.ALL)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private Collection<Address> address;
+//  @OneToMany(mappedBy = "street", cascade = CascadeType.ALL)
+//  @EqualsAndHashCode.Exclude
+//  @ToString.Exclude
+//  private Collection<Address> address;
 
   @ManyToOne
   @JoinColumn(name = "wards_id")

@@ -59,8 +59,8 @@ public class User {
   )
   private String avt;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private List<Product> products;
+//  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//  @EqualsAndHashCode.Exclude
+//  @ToString.Exclude
+//  private List<Product> products;
 }

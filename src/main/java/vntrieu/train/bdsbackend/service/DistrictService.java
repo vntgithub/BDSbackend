@@ -1,5 +1,6 @@
 package vntrieu.train.bdsbackend.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,14 @@ public class DistrictService {
     return repository.findAll();
   }
 
+  public List<District>filter(Integer id) {
+    return repository.filterByCityId(id);
+  }
+
   public District add(District d) {
     return repository.save(d);
   }
+
   public District update(District d) {
     repository.findById(d.getId())
         .map(rs -> {

@@ -2,7 +2,6 @@ package vntrieu.train.bdsbackend.service;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vntrieu.train.bdsbackend.model.ProvinceCity;
 import vntrieu.train.bdsbackend.repository.ProvinceCityRepository;
@@ -13,7 +12,6 @@ public class ProvinceCityService {
   private final ProvinceCityRepository repository;
 
   public List<ProvinceCity> getAll(){
-    System.out.println(repository.findAll());
     return repository.findAll();
   }
 

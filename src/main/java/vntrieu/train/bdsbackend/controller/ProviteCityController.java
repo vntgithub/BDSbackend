@@ -19,11 +19,11 @@ import vntrieu.train.bdsbackend.service.ProvinceCityService;
 @RestController
 @RequestMapping("/province_city")
 public class ProviteCityController {
-  private final ProvinceCityService service;
+  private final ProvinceCityService provinceCityServiceervice;
 
   @GetMapping("")
   List<ProvinceCityDTO> getAll(){
-    List<ProvinceCity> data = service.getAll();
+    List<ProvinceCity> data = provinceCityServiceervice.getAll();
     List<ProvinceCityDTO> rs = new ArrayList<ProvinceCityDTO>();
     for(ProvinceCity i : data){
       rs.add(new ProvinceCityDTO(i));
@@ -32,17 +32,17 @@ public class ProviteCityController {
   }
   @PostMapping("/add")
   ProvinceCity add(@RequestBody ProvinceCity newProvinceCity){
-    return service.add(newProvinceCity);
+    return provinceCityServiceervice.add(newProvinceCity);
   }
 
   @PutMapping("/update")
   ProvinceCity update(@RequestBody ProvinceCity p) {
-    return service.update(p);
+    return provinceCityServiceervice.update(p);
   }
 
   @DeleteMapping("/delete/{id}")
   void delete (@PathVariable Integer id){
-    service.delete(id);
+    provinceCityServiceervice.delete(id);
   }
 
 }

@@ -67,10 +67,10 @@ public class Product {
   @JoinColumn(name = "category_id")
   private Category category;
 
-  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private Collection<Image> images;
+//  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+//  @EqualsAndHashCode.Exclude
+//  @ToString.Exclude
+//  private Collection<Image> images;
 
   @ManyToOne
   @JoinColumn(name = "unit_id")
