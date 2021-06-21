@@ -22,7 +22,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
 public class Product {
   @Id
   @SequenceGenerator(
@@ -78,5 +77,11 @@ public class Product {
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
   private Unit unit;
+
+  @ManyToOne
+  @JoinColumn(name = "u_id")
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private User user;
 
 }

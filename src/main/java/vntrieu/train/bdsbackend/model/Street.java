@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
@@ -47,4 +49,10 @@ public class Street {
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
   private Collection<Address> address;
+
+  @ManyToOne
+  @JoinColumn(name = "wards_id")
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private Ward ward;
 }

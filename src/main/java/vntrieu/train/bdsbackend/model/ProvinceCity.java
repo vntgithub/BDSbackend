@@ -1,6 +1,7 @@
 package vntrieu.train.bdsbackend.model;
 
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,18 +21,17 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
-@Table(name = "provite_city")
-public class ProviteCity {
+@Table(name = "province_city")
+public class ProvinceCity {
   @Id
   @SequenceGenerator(
       name = "provitecity_sequence",
-      sequenceName = "provitecity_sequence",
+      sequenceName = "provincecity_sequence",
       allocationSize = 1
   )
   @GeneratedValue(
       strategy = GenerationType.SEQUENCE,
-      generator = "provitecity_sequence"
+      generator = "provincecity_sequence"
   )
   @Column(
       name = "id",
@@ -44,10 +44,14 @@ public class ProviteCity {
       columnDefinition = "TEXT"
   )
   private String name;
-  @OneToMany(mappedBy = "provite_city", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL)
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
   private Collection<Address> address;
 
+  @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL)
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private List<District> districts;
 
 }

@@ -5,9 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -15,7 +15,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
 public class Account {
   @Id
   @Column(
@@ -30,7 +29,9 @@ public class Account {
   private String password;
 
   @OneToOne
-  @JoinColumn(name = "user_id")
+  @JoinColumn(name = "u_id")
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   private  User user;
 
 

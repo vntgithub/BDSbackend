@@ -18,7 +18,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
 public class Image {
   @Id
   @SequenceGenerator(

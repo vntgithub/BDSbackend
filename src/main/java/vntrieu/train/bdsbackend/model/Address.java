@@ -6,19 +6,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
 public class Address {
   @Id
   @SequenceGenerator(
@@ -50,7 +50,11 @@ public class Address {
 
   @ManyToOne
   @JoinColumn(name = "p_id")
-  private ProviteCity provite_city;
+  private ProvinceCity provinceCity;
+
+  @OneToOne
+  @JoinColumn(name = "u_id")
+  private User user;
 
 
 }

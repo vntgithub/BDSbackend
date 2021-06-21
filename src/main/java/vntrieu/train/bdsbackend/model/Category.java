@@ -19,7 +19,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
 public class Category {
   @Id
   @SequenceGenerator(

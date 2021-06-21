@@ -1,6 +1,7 @@
 package vntrieu.train.bdsbackend.model;
 
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
@@ -20,7 +22,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
 public class Ward {
   @Id
   @SequenceGenerator(
@@ -47,4 +48,15 @@ public class Ward {
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
   private Collection<Address> address;
+
+  @ManyToOne
+  @JoinColumn(name = "district_id")
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private District district;
+
+  @OneToMany(mappedBy = "ward", cascade = CascadeType.ALL)
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private List<Street> streets;
 }

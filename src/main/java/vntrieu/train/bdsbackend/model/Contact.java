@@ -11,13 +11,11 @@ import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
 public class Contact {
   @Id
   @SequenceGenerator(
@@ -44,12 +42,7 @@ public class Contact {
       nullable = false
   )
   private String phoneNumber;
-  @Column(
-      name = "user_id",
-      nullable = false,
-      updatable = false
-  )
-  private Long userId;
+
 
   @OneToOne
   @JoinColumn(name = "user_id", updatable = false, insertable = false)
