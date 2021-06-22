@@ -29,6 +29,7 @@ public class DistrictService {
     repository.findById(d.getId())
         .map(rs -> {
           rs.setName(d.getName());
+          rs.setProvinceCity(d.getProvinceCity());
           return repository.save(rs);
         });
     return d;

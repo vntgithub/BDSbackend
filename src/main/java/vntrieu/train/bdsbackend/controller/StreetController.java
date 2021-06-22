@@ -11,37 +11,39 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vntrieu.train.bdsbackend.dto.WardDTO;
-import vntrieu.train.bdsbackend.model.Ward;
-import vntrieu.train.bdsbackend.service.WardService;
+import vntrieu.train.bdsbackend.dto.StreetDTO;
+import vntrieu.train.bdsbackend.model.Street;
+import vntrieu.train.bdsbackend.service.StreetService;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/ward")
-public class WardController {
-  private final WardService wardService;
+@RequestMapping("/street")
+public class StreetController {
+  private final StreetService streetService;
 
-  @GetMapping("/filter/{district_id}")
-  List<WardDTO> filter(@PathVariable Long district_id){
-    List<WardDTO> rs = new ArrayList<WardDTO>();
-    List<Ward> data =  wardService.filter(district_id);
-    for(Ward i : data) {
-      rs.add(new WardDTO(i));
+  @GetMapping("filter/{ward_id}")
+  List<StreetDTO> filter(@PathVariable Long ward_id){
+    List<Street> data =  streetService.filterByWardId(ward_id);
+    List<StreetDTO> rs = new ArrayList<StreetDTO>();
+    for(Street s : data) {
+      rs.add(new StreetDTO(s));
     }
     return rs;
   }
 
   @PostMapping("/add")
-  Ward add(@RequestBody Ward w) {
-    return wardService.add(w);
+  StreetDTO add(@RequestBody Street s) {
+    System.out.println(s);
+    return streetService.add(s);
   }
+
   @PutMapping("/update")
-  Ward update(@RequestBody Ward w){
-    return wardService.update(w);
+  StreetDTO update(@RequestBody Street s) {
+    return streetService.update(s);
   }
 
   @DeleteMapping("/delete/{id}")
-  String delete(@PathVariable Long id) {
-    return wardService.delete(id);
+  String delete(@PathVariable Long id){
+    return streetService.delete(id);
   }
 }
