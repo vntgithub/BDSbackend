@@ -45,6 +45,6 @@ public class Contact {
 
 
   @OneToOne
-  @JoinColumn(name = "user_id", updatable = false, insertable = false)
+  @JoinColumn(name = "user_id")
   private User user;
 }

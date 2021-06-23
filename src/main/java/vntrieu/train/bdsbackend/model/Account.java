@@ -34,6 +34,4 @@ public class Account {
   @EqualsAndHashCode.Exclude
   private  User user;
 
-
-
 }

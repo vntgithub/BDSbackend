@@ -44,10 +44,10 @@ public class Ward {
       columnDefinition = "TEXT"
   )
   private String name;
-//  @OneToMany(mappedBy = "ward", cascade = CascadeType.ALL)
-//  @EqualsAndHashCode.Exclude
-//  @ToString.Exclude
-//  private Collection<Address> address;
+  @OneToMany(mappedBy = "ward", cascade = CascadeType.ALL)
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private Collection<Address> address;
 
   @ManyToOne
   @JoinColumn(name = "district_id")
@@ -55,8 +55,8 @@ public class Ward {
   @ToString.Exclude
   private District district;
 
-//  @OneToMany(mappedBy = "ward", cascade = CascadeType.ALL)
-//  @EqualsAndHashCode.Exclude
-//  @ToString.Exclude
-//  private List<Street> streets;
+  @OneToMany(mappedBy = "ward", cascade = CascadeType.ALL)
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private List<Street> streets;
 }

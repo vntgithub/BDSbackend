@@ -37,24 +37,28 @@ public class Address {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "str_id")
+  @JoinColumn(name = "street_id")
   private Street street;
 
   @ManyToOne
-  @JoinColumn(name = "w_id")
+  @JoinColumn(name = "ward_id")
   private Ward ward;
 
   @ManyToOne
-  @JoinColumn(name = "d_id")
+  @JoinColumn(name = "district_id")
   private District district;
 
   @ManyToOne
-  @JoinColumn(name = "p_id")
+  @JoinColumn(name = "province_city_id")
   private ProvinceCity provinceCity;
 
   @OneToOne
-  @JoinColumn(name = "u_id")
+  @JoinColumn(name = "user_id", nullable = true)
   private User user;
+
+  @OneToOne
+  @JoinColumn(name = "product_id", nullable = true)
+  private Product product;
 
 
 }

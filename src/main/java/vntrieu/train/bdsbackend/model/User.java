@@ -1,6 +1,8 @@
 package vntrieu.train.bdsbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
+
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,7 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -16,6 +21,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
 
 @Entity
 @NoArgsConstructor
@@ -47,6 +53,7 @@ public class User {
       name = "date_of_birth",
       nullable = false
   )
+  @JsonFormat(pattern="dd-MM-yyyy")
   private LocalDate dateOfBirth;
   @Column(
       name = "gender",
@@ -59,8 +66,20 @@ public class User {
   )
   private String avt;
 
-//  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//  @EqualsAndHashCode.Exclude
-//  @ToString.Exclude
-//  private List<Product> products;
+  @OneToOne
+  @JoinColumn(name = "address_id", nullable = true)
+  private Address address;
+
+  @OneToOne
+  @JoinColumn(name = "account", nullable = true)
+  private Account account;
+
+  @OneToOne
+  @JoinColumn(name = "contact_id", nullable = true)
+  private Contact contact;
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private List<Product> products;
 }
