@@ -16,18 +16,12 @@ public class StreetService {
     return repository.filter(id);
   }
 
-  public StreetDTO add(Street s) {
-    return new StreetDTO(repository.save(s));
+  public Street add(Street s) {
+    return repository.save(s);
   }
 
-  public StreetDTO update(Street s) {
-    repository.findById(s.getId())
-        .map(rs -> {
-          rs.setName(s.getName());
-          rs.setWard(s.getWard());
-          return repository.save(rs);
-        });
-    return new StreetDTO(s);
+  public Street update(Street s) {
+   return  repository.save(s);
   }
 
   public String delete (Long id) {

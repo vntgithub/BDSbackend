@@ -20,13 +20,7 @@ public class WardService {
   }
 
   public Ward update(Ward w) {
-    repository.findById(w.getId())
-        .map(rs -> {
-          rs.setName(w.getName());
-          rs.setDistrict(w.getDistrict());
-          return repository.save(rs);
-        });
-    return w;
+    return repository.save(w);
   }
 
   public String delete(Long id){

@@ -20,12 +20,7 @@ public class ProvinceCityService {
   }
 
   public ProvinceCity update(ProvinceCity p) {
-    repository.findById(p.getId())
-        .map(result -> {
-          result.setName(p.getName());
-          return repository.save(result);
-        });
-    return p;
+    return repository.save(p);
   }
 
   public void delete(Integer id){

@@ -21,7 +21,7 @@ import vntrieu.train.bdsbackend.service.StreetService;
 public class StreetController {
   private final StreetService streetService;
 
-  @GetMapping("filter/{ward_id}")
+  @GetMapping("/{ward_id}")
   List<StreetDTO> filter(@PathVariable Long ward_id){
     List<Street> data =  streetService.filterByWardId(ward_id);
     List<StreetDTO> rs = new ArrayList<StreetDTO>();
@@ -31,18 +31,18 @@ public class StreetController {
     return rs;
   }
 
-  @PostMapping("/add")
+  @PostMapping
   StreetDTO add(@RequestBody Street s) {
     System.out.println(s);
-    return streetService.add(s);
+    return new StreetDTO(streetService.add(s));
   }
 
-  @PutMapping("/update")
+  @PutMapping
   StreetDTO update(@RequestBody Street s) {
-    return streetService.update(s);
+    return new StreetDTO(streetService.update(s));
   }
 
-  @DeleteMapping("/delete/{id}")
+  @DeleteMapping("/{id}")
   String delete(@PathVariable Long id){
     return streetService.delete(id);
   }

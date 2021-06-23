@@ -30,17 +30,17 @@ public class ProviteCityController {
     }
     return rs;
   }
-  @PostMapping("/add")
-  ProvinceCity add(@RequestBody ProvinceCity newProvinceCity){
-    return provinceCityServiceervice.add(newProvinceCity);
+  @PostMapping
+  ProvinceCityDTO add(@RequestBody ProvinceCity newProvinceCity){
+    return new ProvinceCityDTO(provinceCityServiceervice.add(newProvinceCity));
   }
 
-  @PutMapping("/update")
-  ProvinceCity update(@RequestBody ProvinceCity p) {
-    return provinceCityServiceervice.update(p);
+  @PutMapping
+  ProvinceCityDTO update(@RequestBody ProvinceCity p) {
+    return new ProvinceCityDTO(provinceCityServiceervice.update(p));
   }
 
-  @DeleteMapping("/delete/{id}")
+  @DeleteMapping("/{id}")
   void delete (@PathVariable Integer id){
     provinceCityServiceervice.delete(id);
   }

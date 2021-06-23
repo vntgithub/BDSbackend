@@ -30,7 +30,7 @@ public class DistrictController {
     }
     return rs;
   }
-  @GetMapping("/filter/{p_c_id}")
+  @GetMapping("/{p_c_id}")
   List<DistrictDTO> filter(@PathVariable Integer p_c_id) {
     List<District> data =  districtService.filter(p_c_id);
     List<DistrictDTO> rs = new ArrayList<DistrictDTO>();
@@ -39,16 +39,16 @@ public class DistrictController {
     }
     return rs;
   }
-  @PostMapping("/add")
+  @PostMapping
   DistrictDTO add(@RequestBody District d) {
     return new DistrictDTO(districtService.add(d));
   }
 
-  @PutMapping("/update")
+  @PutMapping
   DistrictDTO update(@RequestBody District d) {
     return new DistrictDTO(districtService.update(d));
   }
-  @DeleteMapping("/delete/{id}")
+  @DeleteMapping("/{id}")
   String delete(@PathVariable Long id) {
     districtService.delete(id);
     return "Deleted!";

@@ -26,13 +26,7 @@ public class DistrictService {
   }
 
   public District update(District d) {
-    repository.findById(d.getId())
-        .map(rs -> {
-          rs.setName(d.getName());
-          rs.setProvinceCity(d.getProvinceCity());
-          return repository.save(rs);
-        });
-    return d;
+   return repository.save(d);
   }
 
   public void delete(Long id){

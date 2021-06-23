@@ -21,7 +21,7 @@ import vntrieu.train.bdsbackend.service.WardService;
 public class WardController {
   private final WardService wardService;
 
-  @GetMapping("/filter/{district_id}")
+  @GetMapping("/{district_id}")
   List<WardDTO> filter(@PathVariable Long district_id){
     List<WardDTO> rs = new ArrayList<WardDTO>();
     List<Ward> data =  wardService.filter(district_id);
@@ -31,16 +31,17 @@ public class WardController {
     return rs;
   }
 
-  @PostMapping("/add")
-  Ward add(@RequestBody Ward w) {
-    return wardService.add(w);
-  }
-  @PutMapping("/update")
-  Ward update(@RequestBody Ward w){
-    return wardService.update(w);
+  @PostMapping
+  WardDTO add(@RequestBody Ward w) {
+    return new WardDTO(wardService.add(w));
   }
 
-  @DeleteMapping("/delete/{id}")
+  @PutMapping
+  WardDTO update(@RequestBody Ward w){
+    return new WardDTO(wardService.update(w));
+  }
+
+  @DeleteMapping("/{id}")
   String delete(@PathVariable Long id) {
     return wardService.delete(id);
   }

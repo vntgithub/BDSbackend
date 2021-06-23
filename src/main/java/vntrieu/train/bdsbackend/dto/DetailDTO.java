@@ -1,2 +1,5 @@
-package vntrieu.train.bdsbackend.dto;public class DetailDTO {
+package vntrieu.train.bdsbackend.dto;
+
+public class DetailDTO {
+
 }
