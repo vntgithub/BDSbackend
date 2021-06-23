@@ -27,14 +27,15 @@ public class AddressController {
 
   @PostMapping
   AddressDTO add(@RequestBody Address a) {
-    System.out.println(a);
     return new AddressDTO(addressService.add(a));
   }
 
   @PutMapping
-  AddressDTO update(Address a) {
+  AddressDTO update(@RequestBody Address a) {
     return new AddressDTO(addressService.update(a));
   }
 
+  @DeleteMapping("/{id}")
+  String delete(@PathVariable Long id){return addressService.delete(id);}
 }
 

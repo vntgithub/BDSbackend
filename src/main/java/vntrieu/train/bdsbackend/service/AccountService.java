@@ -9,17 +9,15 @@ import vntrieu.train.bdsbackend.repository.AccountRepository;
 public class AccountService {
   private final AccountRepository repository;
 
-  public void add(Account a) {
-    repository.save(a);
+  public String update(Account a) {
+     if(repository.existsById(a.getUsername())){
+       repository.save(a);
+       return "Done!";
+     }
+     return "ERR";
   }
-  public void update(Account a) {
-    repository.findById(a.getUsername())
-        .map(rs -> {
-          rs = a;
-          return repository.save(rs);
-        });
-  }
-  public void delete(String username){
-    repository.findById(username);
+  public String delete(String username){
+    repository.deleteById(username);
+    return "Deleted!";
   }
 }

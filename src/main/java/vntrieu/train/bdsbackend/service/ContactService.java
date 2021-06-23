@@ -10,17 +10,10 @@ import vntrieu.train.bdsbackend.repository.ContactRepository;
 public class ContactService {
   private final ContactRepository repository;
 
-  public Contact add(Contact c) {
-    return repository.save(c);
-  }
-
   public Contact update(Contact c){
-    repository.findById(c.getId())
-        .map(rs -> {
-          rs = c;
-          return repository.save(rs);
-        });
-    return c;
+    if(repository.existsById(c.getId()))
+      return repository.save(c);
+    return null;
   }
   public String delete(Long id) {
     repository.deleteById(id);

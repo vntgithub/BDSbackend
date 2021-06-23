@@ -19,11 +19,14 @@ public class AddressService {
   }
 
   public Address update(Address a){
-    return repository.save(a);
+    if(repository.existsById(a.getId()))
+      return repository.save(a);
+
+    return null;
   }
 
-//  public String delete(Long id) {
-//    repository.deleteById(id);
-//    return "Deleted!";
-//  }
+  public String delete(Long id) {
+    repository.deleteById(id);
+    return "Deleted!";
+  }
 }

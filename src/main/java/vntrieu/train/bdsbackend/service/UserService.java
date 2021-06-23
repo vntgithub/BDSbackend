@@ -25,20 +25,25 @@ public class UserService {
   }
 
   public User add(User u){
+    //Create account
     Account newAccount = accountRepository.save(u.getAccount());
     u.setAccount(newAccount);
+    //create address
     Address newAddress = addressRepository.save(u.getAddress());
     u.setAddress(newAddress);
+    //create contact
     Contact newContact = contactRepository.save(u.getContact());
     u.setContact(newContact);
-
+    //create ob user
     User newUser =  repository.save(u);
+    //Add foreign key
     newAccount.setUser(newUser);
     newAddress.setUser(newUser);
     newContact.setUser(newUser);
     accountRepository.save(newAccount);
     addressRepository.save(newAddress);
     contactRepository.save(newContact);
+    //Return data
     return newUser;
   }
 
