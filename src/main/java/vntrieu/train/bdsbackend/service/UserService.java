@@ -1,8 +1,8 @@
 package vntrieu.train.bdsbackend.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import vntrieu.train.bdsbackend.dto.UserDTO;
 import vntrieu.train.bdsbackend.model.Account;
 import vntrieu.train.bdsbackend.model.Address;
 import vntrieu.train.bdsbackend.model.Contact;
@@ -19,31 +19,31 @@ public class UserService {
   private  final AccountRepository accountRepository;
   private final ContactRepository contactRepository;
   private final AddressRepository addressRepository;
+  private final String salt = "$2a$10$OGRpSyzszLt6XX8regIQde";
 
   public User getById(Long id) {
     return repository.getById(id);
   }
 
   public User add(User u){
-    //Create account
-    Account newAccount = accountRepository.save(u.getAccount());
-    u.setAccount(newAccount);
-    //create address
-    Address newAddress = addressRepository.save(u.getAddress());
-    u.setAddress(newAddress);
-    //create contact
-    Contact newContact = contactRepository.save(u.getContact());
-    u.setContact(newContact);
-    //create ob user
+
+    //Create user
     User newUser =  repository.save(u);
-    //Add foreign key
+
+    //Update foreign key
+    Account newAccount = newUser.getAccount();
+    newAccount.setPassword(BCrypt.hashpw(newAccount.getPassword(), salt));
     newAccount.setUser(newUser);
-    newAddress.setUser(newUser);
-    newContact.setUser(newUser);
     accountRepository.save(newAccount);
+
+    Address newAddress = newUser.getAddress();
+    newAddress.setUser(newUser);
     addressRepository.save(newAddress);
+
+    Contact newContact = newUser.getContact();
+    newContact.setUser(newUser);
     contactRepository.save(newContact);
-    //Return data
+
     return newUser;
   }
 
@@ -63,4 +63,5 @@ public class UserService {
     repository.deleteById(id);
     return "Deleted!";
   }
+
 }

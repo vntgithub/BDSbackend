@@ -1,5 +1,6 @@
 package vntrieu.train.bdsbackend.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -28,7 +29,7 @@ public class Account {
   )
   private String password;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "u_id")
   @ToString.Exclude
   @EqualsAndHashCode.Exclude

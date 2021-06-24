@@ -1,5 +1,6 @@
 package vntrieu.train.bdsbackend.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -52,11 +53,11 @@ public class Address {
   @JoinColumn(name = "province_city_id")
   private ProvinceCity provinceCity;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id", nullable = true)
   private User user;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "product_id", nullable = true)
   private Product product;
 

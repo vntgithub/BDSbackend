@@ -66,15 +66,15 @@ public class User {
   )
   private String avt;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "address_id", nullable = true)
   private Address address;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "account", nullable = true)
   private Account account;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "contact_id", nullable = true)
   private Contact contact;
 
