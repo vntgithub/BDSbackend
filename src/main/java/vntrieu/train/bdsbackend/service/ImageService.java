@@ -8,5 +8,9 @@ import vntrieu.train.bdsbackend.repository.ImageRepository;
 public class ImageService {
   private ImageRepository repository;
 
+  String delete(Long id){
+    repository.deleteById(id);
+    return "Deleted";
+  }
 
 }

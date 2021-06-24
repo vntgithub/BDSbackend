@@ -42,7 +42,7 @@ public class Product {
       name = "title",
       nullable = false
   )
-  private String tiltle;
+  private String title;
   @Column(
       name = "lease",
       nullable = false
@@ -52,14 +52,19 @@ public class Product {
       name = "price",
       nullable = false
   )
-  private Integer price;
+  private Float price;
   @Column(
       name = "descreption",
       nullable = false
   )
   private String descreption;
+  @Column(
+      name = "phone_number",
+      nullable = false
+  )
+  private  String phoneNumber;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "address_id")
   private Address address;
 
@@ -68,20 +73,14 @@ public class Product {
   private Category category;
 
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
   private Collection<Image> images;
 
   @ManyToOne
   @JoinColumn(name = "unit_id")
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
   private Unit unit;
 
   @ManyToOne
   @JoinColumn(name = "u_id")
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
   private User user;
 
 }

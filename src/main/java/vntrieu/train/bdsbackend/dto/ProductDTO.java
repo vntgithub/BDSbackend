@@ -18,17 +18,17 @@ public class ProductDTO {
   private Long id;
   private String tiltle;
   private Boolean lease;
-  private Integer price;
+  private Float price;
   private String descreption;
   private AddressDTO address;
   private CategoryDTO category;
   private List<ImageDTO> images;
   private UnitDTO unit;
-  private UserDTO user;
+  private String phoneNumber;
 
   public ProductDTO(Product p){
     this.id = p.getId();
-    this.tiltle = p.getTiltle();
+    this.tiltle = p.getTitle();
     this.lease = p.getLease();
     this.price = p.getPrice();
     this.descreption = p.getDescreption();
@@ -40,6 +40,6 @@ public class ProductDTO {
       this.images.add(new ImageDTO(item));
     }
     this.unit = new UnitDTO(p.getUnit());
-    this.user = new UserDTO(p.getUser());
+    this.phoneNumber = p.getPhoneNumber();
   }
 }

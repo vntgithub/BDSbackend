@@ -9,16 +9,19 @@ import vntrieu.train.bdsbackend.model.Address;
 @AllArgsConstructor
 @Data
 public class AddressDTO {
-  private Long id, district_id, ward_id, street_id;
-  private Integer province_city_id;
+  private Long id;
+  private ProvinceCityDTO provinceCity;
+  private DistrictDTO district;
+  private WardDTO ward;
+  private StreetDTO street;
   private String addressString;
 
   public AddressDTO(Address a){
     this.id = a.getId();
-    this.province_city_id = a.getProvinceCity().getId();
-    this.district_id = a.getDistrict().getId();
-    this.ward_id = a.getWard().getId();
-    this.street_id = a.getWard().getId();
+    this.provinceCity = new ProvinceCityDTO(a.getProvinceCity());
+    this.district = new DistrictDTO(a.getDistrict());
+    this.ward = new WardDTO(a.getWard());
+    this.street = new StreetDTO(a.getStreet());
     this.addressString = a.getStreet().getName() + " "
         +  a.getWard().getName() + " "
         + a.getDistrict().getName() + " "
