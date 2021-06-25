@@ -30,8 +30,8 @@ public class Image {
   @Column(name = "url", nullable = false)
   private String url;
 
-  @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "product_id")
+  @ManyToOne
+  @JoinColumn(name = "product_id", referencedColumnName = "id")
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
   private Product product;

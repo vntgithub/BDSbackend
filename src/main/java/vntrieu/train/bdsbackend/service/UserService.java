@@ -1,15 +1,8 @@
 package vntrieu.train.bdsbackend.service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import vntrieu.train.bdsbackend.model.Account;
-import vntrieu.train.bdsbackend.model.Address;
-import vntrieu.train.bdsbackend.model.Contact;
 import vntrieu.train.bdsbackend.model.User;
-import vntrieu.train.bdsbackend.repository.AccountRepository;
-import vntrieu.train.bdsbackend.repository.AddressRepository;
-import vntrieu.train.bdsbackend.repository.ContactRepository;
 import vntrieu.train.bdsbackend.repository.UserRepository;
 
 @Service
