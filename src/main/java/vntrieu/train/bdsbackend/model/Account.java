@@ -18,19 +18,14 @@ import lombok.ToString;
 @Data
 public class Account {
   @Id
-  @Column(
-      name = "username",
-      updatable = false
-  )
+  @Column(name = "username", updatable = false)
   private String username;
-  @Column(
-      name = "password",
-      nullable = false
-  )
+
+  @Column(name = "password", nullable = false)
   private String password;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "u_id")
+  @JoinColumn(name = "user_id")
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   private  User user;

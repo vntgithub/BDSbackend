@@ -19,33 +19,18 @@ import lombok.NoArgsConstructor;
 @Data
 public class Contact {
   @Id
-  @SequenceGenerator(
-      name = "contact_sequence",
-      sequenceName = "contact_sequence",
-      allocationSize = 1
-  )
-  @GeneratedValue(
-      strategy = GenerationType.SEQUENCE,
-      generator = "contact_sequence"
-  )
-  @Column(
-      name = "id",
-      updatable = false
-  )
+  @SequenceGenerator(name = "contact_sequence", sequenceName = "contact_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contact_sequence")
+  @Column(name = "id", updatable = false)
   private Long id;
-  @Column(
-      name = "email",
-      nullable = false
-  )
+
+  @Column(name = "email", nullable = false)
   private String email;
-  @Column(
-      name = "phone_number",
-      nullable = false
-  )
+
+  @Column(name = "phone_number", nullable = false)
   private String phoneNumber;
 
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "user_id")
+  @OneToOne(mappedBy = "contact")
   private User user;
 }

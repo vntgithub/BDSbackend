@@ -1,5 +1,6 @@
 package vntrieu.train.bdsbackend.service;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import vntrieu.train.bdsbackend.model.Address;
@@ -28,5 +29,19 @@ public class AddressService {
   public String delete(Long id) {
     repository.deleteById(id);
     return "Deleted!";
+  }
+  public List<Address> searchByCity(Integer pId){
+    return repository.searchByCity(pId);
+  }
+
+  public List<Address> searchByDistrict(Long districtId){
+    return repository.searchByDistrict(districtId);
+  }
+  public List<Address> searchByWard(Long wardId){
+    return repository.searchByWard(wardId);
+  }
+
+  public List<Address> searchByStreet(Long streetId){
+    return repository.searchByStreet(streetId);
   }
 }

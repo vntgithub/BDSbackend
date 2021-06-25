@@ -16,36 +16,11 @@ import vntrieu.train.bdsbackend.repository.UserRepository;
 @AllArgsConstructor
 public class UserService {
   private final UserRepository repository;
-  private  final AccountRepository accountRepository;
-  private final ContactRepository contactRepository;
-  private final AddressRepository addressRepository;
-  private final String salt = "$2a$10$OGRpSyzszLt6XX8regIQde";
 
   public User getById(Long id) {
     return repository.getById(id);
   }
 
-  public User add(User u){
-
-    //Create user
-    User newUser =  repository.save(u);
-
-    //Update foreign key
-    Account newAccount = newUser.getAccount();
-    newAccount.setPassword(BCrypt.hashpw(newAccount.getPassword(), salt));
-    newAccount.setUser(newUser);
-    accountRepository.save(newAccount);
-
-    Address newAddress = newUser.getAddress();
-    newAddress.setUser(newUser);
-    addressRepository.save(newAddress);
-
-    Contact newContact = newUser.getContact();
-    newContact.setUser(newUser);
-    contactRepository.save(newContact);
-
-    return newUser;
-  }
 
   public User update(User u){
     repository.findById(u.getId())

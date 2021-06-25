@@ -21,25 +21,12 @@ import lombok.ToString;
 @Data
 public class Category {
   @Id
-  @SequenceGenerator(
-      name = "category_sequence",
-      sequenceName = "category_sequence",
-      allocationSize = 1
-  )
-  @GeneratedValue(
-      strategy = GenerationType.SEQUENCE,
-      generator = "category_sequence"
-  )
-  @Column(
-      name = "id",
-      updatable = false
-  )
+  @SequenceGenerator(name = "category_sequence", sequenceName = "category_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_sequence")
+  @Column(name = "id", updatable = false)
   private Integer id;
-  @Column(
-      name = "name",
-      nullable = false,
-      columnDefinition = "TEXT"
-  )
+
+  @Column(name = "name", nullable = false, columnDefinition = "TEXT")
   private String name;
 
   @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)

@@ -1,7 +1,6 @@
 package vntrieu.train.bdsbackend.model;
 
 import java.util.Collection;
-import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,26 +23,14 @@ import lombok.ToString;
 @Data
 public class Ward {
   @Id
-  @SequenceGenerator(
-      name = "ward_sequence",
-      sequenceName = "ward_sequence",
-      allocationSize = 1
-  )
-  @GeneratedValue(
-      strategy = GenerationType.SEQUENCE,
-      generator = "ward_sequence"
-  )
-  @Column(
-      name = "id",
-      updatable = false
-  )
+  @SequenceGenerator(name = "ward_sequence", sequenceName = "ward_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ward_sequence")
+  @Column(name = "id", updatable = false)
   private Long id;
-  @Column(
-      name = "name",
-      nullable = false,
-      columnDefinition = "TEXT"
-  )
+
+  @Column(name = "name", nullable = false, columnDefinition = "TEXT")
   private String name;
+
   @OneToMany(mappedBy = "ward", cascade = CascadeType.ALL)
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
@@ -58,5 +45,5 @@ public class Ward {
   @OneToMany(mappedBy = "ward", cascade = CascadeType.ALL)
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
-  private List<Street> streets;
+  private Collection<Street> streets;
 }

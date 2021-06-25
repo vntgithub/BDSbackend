@@ -27,10 +27,6 @@ public class UserController {
   UserDTO getById(@PathVariable Long id){
     return new UserDTO(userService.getById(id));
   }
-  @PostMapping
-  UserDTO add(@RequestBody User user) {
-    return new UserDTO(userService.add(user));
-  }
 
   @PutMapping
   UserDTO update(@RequestBody User user) {

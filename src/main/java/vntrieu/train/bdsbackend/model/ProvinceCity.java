@@ -1,7 +1,6 @@
 package vntrieu.train.bdsbackend.model;
 
 import java.util.Collection;
-import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,25 +23,12 @@ import lombok.ToString;
 @Table(name = "province_city")
 public class ProvinceCity {
   @Id
-  @SequenceGenerator(
-      name = "provitecity_sequence",
-      sequenceName = "provincecity_sequence",
-      allocationSize = 1
-  )
-  @GeneratedValue(
-      strategy = GenerationType.SEQUENCE,
-      generator = "provincecity_sequence"
-  )
-  @Column(
-      name = "id",
-      updatable = false
-  )
+  @SequenceGenerator(name = "provitecity_sequence", sequenceName = "provincecity_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "provincecity_sequence")
+  @Column(name = "id", updatable = false)
   private Integer id;
-  @Column(
-      name = "name",
-      nullable = false,
-      columnDefinition = "TEXT"
-  )
+
+  @Column(name = "name", nullable = false, columnDefinition = "TEXT")
   private String name;
 
   @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL)
@@ -53,6 +39,6 @@ public class ProvinceCity {
   @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL)
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
-  private List<District> districts;
+  private Collection<District> districts;
 
 }

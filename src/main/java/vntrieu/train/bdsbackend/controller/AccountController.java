@@ -1,6 +1,7 @@
 package vntrieu.train.bdsbackend.controller;
 
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.util.PerformanceSensitive;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,11 +20,15 @@ public class AccountController {
   private final AccountService accountService;
 
   @PostMapping
+  UserDTO sigin(@RequestBody Account account){return new UserDTO(accountService.add(account));}
+
+  @PostMapping("/login")
   UserDTO login(@RequestBody AccountDTO account){
     return new UserDTO(accountService.login(account));
   }
   @PutMapping
   String update(@RequestBody Account a){return accountService.update(a);}
+
   @DeleteMapping
   String delete(@PathVariable String username){return accountService.delete(username);}
 }

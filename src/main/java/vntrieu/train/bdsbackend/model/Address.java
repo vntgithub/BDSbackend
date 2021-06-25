@@ -13,8 +13,6 @@ import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 
 @Entity
 @NoArgsConstructor
@@ -22,19 +20,9 @@ import lombok.ToString;
 @Data
 public class Address {
   @Id
-  @SequenceGenerator(
-      name = "address_sequence",
-      sequenceName = "address_sequence",
-      allocationSize = 1
-  )
-  @GeneratedValue(
-      strategy = GenerationType.SEQUENCE,
-      generator = "address_sequence"
-  )
-  @Column(
-      name = "id",
-      updatable = false
-  )
+  @SequenceGenerator(name = "address_sequence", sequenceName = "address_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_sequence")
+  @Column(name = "id", updatable = false)
   private Long id;
 
   @ManyToOne
@@ -53,13 +41,10 @@ public class Address {
   @JoinColumn(name = "province_city_id")
   private ProvinceCity provinceCity;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "user_id", nullable = true)
+  @OneToOne(mappedBy = "address")
   private User user;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "product_id", nullable = true)
+  @OneToOne(mappedBy = "address")
   private Product product;
-
 
 }

@@ -22,24 +22,12 @@ import lombok.ToString;
 @ToString
 public class Unit {
   @Id
-  @SequenceGenerator(
-      name = "unit_sequence",
-      sequenceName = "unit_sequence",
-      allocationSize = 1
-  )
-  @GeneratedValue(
-      strategy = GenerationType.SEQUENCE,
-      generator = "unit_sequence"
-  )
-  @Column(
-      name = "id",
-      updatable = false
-  )
+  @SequenceGenerator(name = "unit_sequence", sequenceName = "unit_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "unit_sequence")
+  @Column(name = "id", updatable = false)
   private Integer id;
-  @Column(
-      name = "name",
-      nullable = false
-  )
+
+  @Column(name = "name", nullable = false)
   private String name;
 
   @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL)

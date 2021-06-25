@@ -16,6 +16,12 @@ public class AccountService {
   private final UserRepository userRepository;
   private final String salt = "$2a$10$OGRpSyzszLt6XX8regIQde";
 
+  public User add(Account account){
+    String hashedPassword = BCrypt.hashpw(account.getPassword(), salt);
+    account.setPassword(hashedPassword);
+    return accountRepository.save(account).getUser();
+  }
+
   public User login(AccountDTO a){
     String username = a.getUsername();
     String pass = a.getPassword();

@@ -14,9 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+
 
 @Entity
 @NoArgsConstructor
@@ -24,55 +23,36 @@ import lombok.ToString;
 @Data
 public class Product {
   @Id
-  @SequenceGenerator(
-      name = "product_sequence",
-      sequenceName = "product_sequence",
-      allocationSize = 1
-  )
-  @GeneratedValue(
-      strategy = GenerationType.SEQUENCE,
-      generator = "product_sequence"
-  )
-  @Column(
-      name = "id",
-      updatable = false
-  )
+  @SequenceGenerator(name = "product_sequence", sequenceName = "product_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence")
+  @Column(name = "id", updatable = false)
   private Long id;
-  @Column(
-      name = "title",
-      nullable = false
-  )
+
+  @Column(name = "title", nullable = false)
   private String title;
-  @Column(
-      name = "lease",
-      nullable = false
-  )
+
+  @Column(name = "lease", nullable = false)
   private Boolean lease;
-  @Column(
-      name = "price",
-      nullable = false
-  )
+
+  @Column(name = "price", nullable = false)
   private Float price;
-  @Column(
-      name = "descreption",
-      nullable = false
-  )
+
+  @Column(name = "descreption", nullable = false)
   private String descreption;
-  @Column(
-      name = "phone_number",
-      nullable = false
-  )
+
+  @Column(name = "phone_number", nullable = false)
   private  String phoneNumber;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "address_id")
+  @JoinColumn(name = "address_id", referencedColumnName = "id")
   private Address address;
+
 
   @ManyToOne
   @JoinColumn(name = "category_id")
   private Category category;
 
-  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "product")
   private Collection<Image> images;
 
   @ManyToOne
@@ -80,7 +60,22 @@ public class Product {
   private Unit unit;
 
   @ManyToOne
-  @JoinColumn(name = "u_id")
+  @JoinColumn(name = "user_id")
   private User user;
+
+  @Column(name = "frontispiece",nullable = false)
+  private Integer frontispiece;
+
+  @Column(name = "number_of_floors", nullable = false)
+  private Short numberOfFloors;
+
+  @Column(name = "number_of_wc", nullable = false)
+  private Short numberOfWC;
+
+  @Column(name = "funiture", nullable = false)
+  private String funiture;
+
+  @Column(name = "legal_infor", nullable = false)
+  private String legalInfor;
 
 }

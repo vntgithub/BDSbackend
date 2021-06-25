@@ -2,15 +2,13 @@ package vntrieu.train.bdsbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
-
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -30,56 +28,37 @@ import lombok.ToString;
 @Table(name = "person")
 public class User {
   @Id
-  @SequenceGenerator(
-      name = "user_sequence",
-      sequenceName = "user_sequence",
-      allocationSize = 1
-  )
-  @GeneratedValue(
-      strategy = GenerationType.SEQUENCE,
-      generator = "user_sequence"
-  )
-  @Column(
-      name = "id",
-      updatable = false
-  )
+  @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
+  @Column(name = "id", updatable = false)
   private Long id;
-  @Column(
-      name = "name",
-      nullable = false
-  )
+
+  @Column(name = "name", nullable = false)
   private String name;
-  @Column(
-      name = "date_of_birth",
-      nullable = false
-  )
+
+  @Column(name = "date_of_birth", nullable = false)
   @JsonFormat(pattern="dd-MM-yyyy")
   private LocalDate dateOfBirth;
-  @Column(
-      name = "gender",
-      nullable = false
-  )
+
+  @Column(name = "gender", nullable = false)
   private Boolean gender;
-  @Column(
-      name = "avt",
-      nullable = false
-  )
+
+  @Column(name = "avt", nullable = false)
   private String avt;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "address_id", nullable = true)
+  @JoinColumn(name = "address_id", referencedColumnName = "id")
   private Address address;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "account", nullable = true)
+  @OneToOne(mappedBy = "user")
   private Account account;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "contact_id", nullable = true)
+  @JoinColumn(name = "contact_id")
   private Contact contact;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
-  private List<Product> products;
+  private Collection<Product> products;
 }
