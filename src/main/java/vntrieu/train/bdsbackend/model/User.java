@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -61,4 +62,7 @@ public class User {
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
   private Collection<Product> products;
+
+  @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+  private Filter filter;
 }

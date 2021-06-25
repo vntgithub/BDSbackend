@@ -5,8 +5,10 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import vntrieu.train.bdsbackend.dto.AccountDTO;
 import vntrieu.train.bdsbackend.model.Account;
+import vntrieu.train.bdsbackend.model.Filter;
 import vntrieu.train.bdsbackend.model.User;
 import vntrieu.train.bdsbackend.repository.AccountRepository;
+import vntrieu.train.bdsbackend.repository.FilterRepository;
 import vntrieu.train.bdsbackend.repository.UserRepository;
 
 @AllArgsConstructor
@@ -14,12 +16,14 @@ import vntrieu.train.bdsbackend.repository.UserRepository;
 public class AccountService {
   private final AccountRepository accountRepository;
   private final UserRepository userRepository;
+  private final FilterRepository filterRepository;
   private final String salt = "$2a$10$OGRpSyzszLt6XX8regIQde";
 
   public User add(Account account){
     String hashedPassword = BCrypt.hashpw(account.getPassword(), salt);
     account.setPassword(hashedPassword);
-    return accountRepository.save(account).getUser();
+    User newUser =  accountRepository.save(account).getUser();
+    return newUser;
   }
 
   public User login(AccountDTO a){
