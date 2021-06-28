@@ -15,11 +15,10 @@ import vntrieu.train.bdsbackend.repository.UserRepository;
 public class AccountService {
   private final AccountRepository accountRepository;
   private final UserRepository userRepository;
-  private final FilterRepository filterRepository;
-  private final String salt = "$2a$10$OGRpSyzszLt6XX8regIQde";
+
 
   public User add(Account account){
-    String hashedPassword = BCrypt.hashpw(account.getPassword(), salt);
+    String hashedPassword = BCrypt.hashpw(account.getPassword(), BCrypt.gensalt());
     account.setPassword(hashedPassword);
     User newUser =  accountRepository.save(account).getUser();
     return newUser;
@@ -30,9 +29,8 @@ public class AccountService {
     String pass = a.getPassword();
     if(accountRepository.existsById(username)){
       Account accountLoggin = accountRepository.getById(username);
-      String hashedPassLogin = BCrypt.hashpw(pass, salt);
-      String hashedPassInDB = accountLoggin.getPassword();
-      if(hashedPassInDB.equals(hashedPassLogin)){
+
+      if(BCrypt.checkpw(pass, accountLoggin.getPassword())){
         return userRepository.getById(accountLoggin.getUser().getId());
       }
     }

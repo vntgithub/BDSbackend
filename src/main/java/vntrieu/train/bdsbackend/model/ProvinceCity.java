@@ -1,16 +1,8 @@
 package vntrieu.train.bdsbackend.model;
 
 import java.util.Collection;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,12 +24,12 @@ public class ProvinceCity {
   @Column(name = "name", nullable = false, columnDefinition = "TEXT")
   private String name;
 
-  @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
   private Collection<Address> address;
 
-  @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
   private Collection<District> districts;

@@ -28,22 +28,12 @@ public class Filter {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "filter_sequence")
     private Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private User user;
 
     @Convert(converter = HashMapConverter.class, disableConversion = true)
     @Type( type = "json" )
     private Map<String, Object> content;
-
-//    public String getJSONContent() throws JsonProcessingException {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        return objectMapper.writeValueAsString(content);
-//    }
-//
-//    public HashMap deserializeContent(String contentJSON) throws IOException {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        return  objectMapper.readValue(contentJSON, HashMap.class);
-//    }
 
 }

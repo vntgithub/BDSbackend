@@ -35,7 +35,7 @@ public class Product {
   private Boolean lease;
 
   @Column(name = "price", nullable = false)
-  private Float price;
+  private Long price;
 
   @Column(name = "descreption", nullable = false)
   private String descreption;
@@ -54,10 +54,6 @@ public class Product {
 
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
   private Collection<Image> images;
-
-  @ManyToOne
-  @JoinColumn(name = "unit_id")
-  private Unit unit;
 
   @ManyToOne
   @JoinColumn(name = "user_id")

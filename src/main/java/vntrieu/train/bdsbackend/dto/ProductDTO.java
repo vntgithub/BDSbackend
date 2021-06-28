@@ -10,25 +10,31 @@ import lombok.NoArgsConstructor;
 import vntrieu.train.bdsbackend.model.Image;
 import vntrieu.train.bdsbackend.model.Product;
 
+import javax.persistence.Column;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class ProductDTO {
   private Long id;
-  private String tiltle;
+  private String title;
   private Boolean lease;
-  private Float price;
+  private Long price;
   private String descreption;
   private AddressDTO address;
   private CategoryDTO category;
   private List<ImageDTO> images;
-  private UnitDTO unit;
   private String phoneNumber;
+  private Integer frontispiece;
+  private Short numberOfFloors;
+  private Short numberOfWC;
+  private String funiture;
+  private String legalInfor;
 
   public ProductDTO(Product p){
     this.id = p.getId();
-    this.tiltle = p.getTitle();
+    this.title = p.getTitle();
     this.lease = p.getLease();
     this.price = p.getPrice();
     this.descreption = p.getDescreption();
@@ -39,7 +45,11 @@ public class ProductDTO {
     for(Image item : data){
       this.images.add(new ImageDTO(item));
     }
-    this.unit = new UnitDTO(p.getUnit());
     this.phoneNumber = p.getPhoneNumber();
+    this.frontispiece = p.getFrontispiece();
+    this.numberOfFloors = p.getNumberOfFloors();
+    this.numberOfWC = p.getNumberOfWC();
+    this.funiture = p.getFuniture();
+    this.legalInfor = p.getLegalInfor();
   }
 }
