@@ -5,7 +5,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import vntrieu.train.bdsbackend.dto.AccountDTO;
 import vntrieu.train.bdsbackend.model.Account;
-import vntrieu.train.bdsbackend.model.Filter;
 import vntrieu.train.bdsbackend.model.User;
 import vntrieu.train.bdsbackend.repository.AccountRepository;
 import vntrieu.train.bdsbackend.repository.FilterRepository;

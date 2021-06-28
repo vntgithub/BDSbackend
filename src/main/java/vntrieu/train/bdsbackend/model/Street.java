@@ -43,8 +43,4 @@ public class Street {
   @ToString.Exclude
   private Ward ward;
 
-  @OneToMany(mappedBy = "street", cascade = CascadeType.ALL)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private Collection<Filter> filter;
 }

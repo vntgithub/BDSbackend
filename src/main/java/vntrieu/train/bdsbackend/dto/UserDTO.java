@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import vntrieu.train.bdsbackend.model.Address;
 import vntrieu.train.bdsbackend.model.User;
 
 @NoArgsConstructor

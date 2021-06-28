@@ -42,8 +42,4 @@ public class ProvinceCity {
   @ToString.Exclude
   private Collection<District> districts;
 
-  @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private Collection<Filter> filter;
 }

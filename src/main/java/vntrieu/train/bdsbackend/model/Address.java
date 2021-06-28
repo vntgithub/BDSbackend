@@ -1,15 +1,7 @@
 package vntrieu.train.bdsbackend.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,10 +33,10 @@ public class Address {
   @JoinColumn(name = "province_city_id")
   private ProvinceCity provinceCity;
 
-  @OneToOne(mappedBy = "address")
+  @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
   private User user;
 
-  @OneToOne(mappedBy = "address")
+  @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
   private Product product;
 
 }

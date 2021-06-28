@@ -1,14 +1,7 @@
 package vntrieu.train.bdsbackend.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +24,6 @@ public class Contact {
   private String phoneNumber;
 
 
-  @OneToOne(mappedBy = "contact")
+  @OneToOne(mappedBy = "contact", fetch = FetchType.LAZY)
   private User user;
 }
