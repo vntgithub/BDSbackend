@@ -10,24 +10,34 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
   @Query("SELECT p FROM Product  p WHERE p.user.id=?1")
   public List<Product> getByUserId(Long id);
 
-  @Query("SELECT p FROM Product p INNER JOIN Address a ON p.address.id = a .id " +
-          "WHERE a.provinceCity.id=?1 " +
-          "and a.district.id=?2 " +
-          "and a.ward.id=?3 " +
-          "and a.street.id=?4 " +
-          "and  p.title like %?5%"
+  @Query("SELECT p FROM Product p INNER JOIN Address a ON p.address.id = a .id WHERE a.provinceCity.id=?1 ")
+  public List<Product> searchByCity(Integer provinceCityId);
+
+  @Query("SELECT p FROM Product p INNER JOIN Address a ON p.address.id = a .id WHERE a.district.id=?1 ")
+  public List<Product> searchByDistrict(Long districtId);
+
+  @Query("SELECT p FROM Product p INNER JOIN Address a ON p.address.id = a .id WHERE a.ward.id=?1 ")
+  public List<Product> searchByWard(Long wardId);
+
+  @Query("SELECT p FROM Product p INNER JOIN Address a ON p.address.id = a .id WHERE a.street.id=?1 ")
+  public List<Product> searchByStreet(Long provinceCityId);
 
 
-  )
-  public List<Product> search(
-          Integer provinceCityId,
-          Long districtId,
-          Long wardId,
-          Long streetId,
-          String searchString
-  );
+  @Query("SELECT p FROM Product p  WHERE p.price <= 500000000 ")
+  public List<Product> searchByPrice500();
 
-  @Query("SELECT p FROM Product p WHERE p.title like %?1%")
-  public List<Product> searchTitle(String title);
+  @Query("SELECT p FROM Product p  WHERE p.price > 500000000 and p.price <= 1000000000 ")
+  public List<Product> searchByPrice500_1000();
 
+  @Query("SELECT p FROM Product p  WHERE p.price > 1000000000 and p.price <= 1500000000 ")
+  public List<Product> searchByPrice1000_1500();
+
+  @Query("SELECT p FROM Product p  WHERE p.price > 1500000000 and p.price <= 2000000000 ")
+  public List<Product> searchByPrice1500_2000();
+
+  @Query("SELECT p FROM Product p  WHERE p.price >2000000000 ")
+  public List<Product> searchByPrice2000();
+
+  @Query("SELECT p FROM Product p  WHERE p.title like %?1% ")
+  public List<Product> searchByString(String searchString);
 }

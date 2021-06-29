@@ -2,6 +2,7 @@ package vntrieu.train.bdsbackend.service;
 
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;;
@@ -43,34 +44,41 @@ public class ProductService {
     return "Deleted!";
   }
 
-  public static List<Product> filterByPriceRange(List<Product> products, String priceRange){
+  public static List<Product> filterByPriceRange(List<Product> products, Integer priceRange){
     List<Product> productsAfterFiltered = new ArrayList<Product>();
     switch (priceRange){
-      case "<500":
-        for(Product p : products)
-          if(p.getPrice() < 500000000)
-            productsAfterFiltered.add(p);
-      case "500-10000":
-        for(Product p : products)
-          if(p.getPrice() >= 500000000 && p.getPrice() < 1000000000)
-            productsAfterFiltered.add(p);
-      case "1000-2000":
-        for(Product p : products)
-          if(p.getPrice() >= 1000000000 && p.getPrice() < 2000000000)
-            productsAfterFiltered.add(p);
+      case 0:
+        return  products
+                .stream()
+                .filter(item -> item.getPrice() <= 500000000)
+                .collect(Collectors.toList());
+      case 1:
+        return  products
+                .stream()
+                .filter(item -> (item.getPrice() > 500000000)&&(item.getPrice() <= 1000000000))
+                .collect(Collectors.toList());
+      case 2:
+        return   products
+                .stream()
+                .filter(item -> (item.getPrice() > 1000000000)&&(item.getPrice() <= 1500000000))
+                .collect(Collectors.toList());
+      case 3:
+        return   products
+                .stream()
+                .filter(item -> (item.getPrice() > 1500000000)&&(item.getPrice() <=2000000000))
+                .collect(Collectors.toList());
       default:
-        for(Product p : products)
-          if(p.getPrice() > 2000000000)
-            productsAfterFiltered.add(p);
-
+        return  products
+                .stream()
+                .filter(item -> item.getPrice() > 2000000000)
+                .collect(Collectors.toList());
     }
-    return productsAfterFiltered;
   }
   public static List<Product> filterBySearchSTring(List<Product> products, String searchString){
-    Pattern regex = Pattern.compile("^."+searchString+".$");
+
     List<Product> productsAfterFiltered = new ArrayList<Product>();
     for(Product p : products)
-      if(regex.matcher(p.getTitle()).matches())
+      if(p.getTitle().contains(searchString))
         productsAfterFiltered.add(p);
 
      return productsAfterFiltered;
@@ -79,44 +87,44 @@ public class ProductService {
                                Long districtId,
                                Long wardId,
                                Long streetId,
-                               String priceRange,
+                               Integer priceRange,
                                String searchString){
-    List<Address> addresses = null;
-    List<Product> products = new ArrayList<Product>();
+
+    List<Product> products = null;
+
+
     if(streetId != null)
-      addresses = addressRepository.searchByStreet(streetId);
-    else{
-      if(wardId !=null)
-        addresses = addressRepository.searchByWard(wardId);
-      else{
-        if(districtId !=null)
-          addresses = addressRepository.searchByDistrict(districtId);
-        else
-          if(provinceCityId !=null )
-            addresses = addressRepository.searchByCity(provinceCityId);
+      products = productRepository.searchByStreet(streetId);
+    if(wardId != null && products == null)
+      products = productRepository.searchByWard(wardId);
+    if(districtId != null && products == null)
+      products = productRepository.searchByDistrict(districtId);
+    if(provinceCityId != null && products == null)
+      products = productRepository.searchByCity(provinceCityId);
+
+    if(priceRange != null){
+      if(products == null){
+        switch (priceRange){
+          case 0: products = productRepository.searchByPrice500(); break;
+          case 1: products = productRepository.searchByPrice500_1000(); break;
+          case 2: products = productRepository.searchByPrice1000_1500(); break;
+          case 3: products = productRepository.searchByPrice1500_2000(); break;
+          default: products =  productRepository.searchByPrice2000();
+        }
+      }else{
+        filterByPriceRange(products, priceRange);
       }
     }
-    if(addresses != null){
-      for(Address a : addresses)
-        if(a.getProduct() != null)
-          products.add(a.getProduct());
 
-      if(priceRange != null)
-        products = filterByPriceRange(products, priceRange);
-
-      if(searchString != null)
+    if(searchString != null){
+      if(products == null)
+        products = productRepository.searchByString(searchString);
+      else{
         products = filterBySearchSTring(products, searchString);
+      }
     }
 
     return products;
-  }
-  public List<Product> searchByTitle(String searchString) {return productRepository.searchTitle(searchString);}
-  public List<Product> search1 (Integer provinceCityId,
-                                Long districtId,
-                                Long wardId,
-                                Long streetId,
-                                String searchString){
-    return productRepository.search(provinceCityId, districtId, wardId, streetId, searchString);
   }
 
 }

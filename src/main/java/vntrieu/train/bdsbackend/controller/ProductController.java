@@ -59,39 +59,24 @@ public class ProductController {
                            Long districtId,
                            Long wardId,
                            Long streetId,
-                           String priceRange,
+                           Integer priceRange,
                            String searchString
   ){
 
-    List<Product> products = productService.search(provinceCityId, districtId, wardId, streetId, priceRange, searchString);
+    List<Product> products = productService.search(
+            provinceCityId,
+            districtId,
+            wardId,
+            streetId,
+            priceRange,
+            searchString);
+
     List<ProductDTO> listProductDTO = new ArrayList<ProductDTO>();
-    for(Product p : products)
-      listProductDTO.add(new ProductDTO(p));
+
+    if(products != null)
+      for(Product p : products)
+        listProductDTO.add(new ProductDTO(p));
 
     return listProductDTO;
-  }
-  @GetMapping("/search/{searchString}")
-  List<ProductDTO> searchByTitle(@PathVariable String searchString){
-    List<Product> products = productService.searchByTitle(searchString);
-    List<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
-    for(Product p : products)
-      productDTOs.add(new ProductDTO(p));
-
-    return productDTOs;
-  }
-  @GetMapping("/search2")
-  List<ProductDTO> search2(
-          Integer provinceCityId,
-          Long districtId,
-          Long wardId,
-          Long streetId,
-          String searchString
-  ){
-    List<Product> products =  productService.search1(provinceCityId, districtId, wardId, streetId, searchString);
-    List<ProductDTO> productDTOS = new ArrayList<ProductDTO>();
-    for(Product p : products)
-      productDTOS.add(new ProductDTO(p));
-
-    return productDTOS;
   }
 }
