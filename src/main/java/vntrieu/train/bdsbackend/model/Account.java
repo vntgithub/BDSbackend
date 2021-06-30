@@ -24,6 +24,7 @@ public class Account {
   @Column(name = "password", nullable = false)
   private String password;
 
+
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id")
   @ToString.Exclude

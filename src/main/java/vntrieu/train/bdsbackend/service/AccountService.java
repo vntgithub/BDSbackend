@@ -1,22 +1,39 @@
 package vntrieu.train.bdsbackend.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import vntrieu.train.bdsbackend.dto.AccountDTO;
 import vntrieu.train.bdsbackend.model.Account;
+import vntrieu.train.bdsbackend.model.AccountDetails;
 import vntrieu.train.bdsbackend.model.User;
 import vntrieu.train.bdsbackend.repository.AccountRepository;
 import vntrieu.train.bdsbackend.repository.FilterRepository;
 import vntrieu.train.bdsbackend.repository.UserRepository;
 
-@AllArgsConstructor
+
 @Service
-public class AccountService {
+@AllArgsConstructor
+public class AccountService implements UserDetailsService {
+
+  @Autowired
   private final AccountRepository accountRepository;
+
   private final UserRepository userRepository;
 
-
+  @Override
+  public AccountDetails loadUserByUsername(String username) {
+    // Kiểm tra xem user có tồn tại trong database không?
+    Account account = accountRepository.getById(username);
+    if (account == null) {
+      throw new UsernameNotFoundException(username);
+    }
+    return new AccountDetails(account);
+  }
+  public User getByUsername(String username){return accountRepository.getById(username).getUser();}
   public User add(Account account){
     String hashedPassword = BCrypt.hashpw(account.getPassword(), BCrypt.gensalt());
     account.setPassword(hashedPassword);
@@ -24,19 +41,7 @@ public class AccountService {
     return newUser;
   }
 
-  public User login(AccountDTO a){
-    String username = a.getUsername();
-    String pass = a.getPassword();
-    if(accountRepository.existsById(username)){
-      Account accountLoggin = accountRepository.getById(username);
-
-      if(BCrypt.checkpw(pass, accountLoggin.getPassword())){
-        return userRepository.getById(accountLoggin.getUser().getId());
-      }
-    }
-    return new User();
-  }
-  public String update(Account a) {
+    public String update(Account a) {
      if(accountRepository.existsById(a.getUsername())){
        accountRepository.save(a);
        return "Done!";
@@ -49,3 +54,4 @@ public class AccountService {
   }
 
 }
+
