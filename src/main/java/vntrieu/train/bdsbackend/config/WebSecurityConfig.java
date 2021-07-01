@@ -49,12 +49,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+
                 .cors() // Ngăn chặn request từ một domain khác
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,  "/account/**").permitAll()
+                .antMatchers(HttpMethod.POST,  "/account/login", "/account").permitAll()
                 .antMatchers(HttpMethod.GET,  "/**").permitAll()
-                .anyRequest().authenticated().and().csrf().disable(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
+                .anyRequest().authenticated()
+                .and().csrf().disable(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
 
         // Thêm một lớp Filter kiểm tra jwt
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

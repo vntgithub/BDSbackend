@@ -11,7 +11,7 @@ import vntrieu.train.bdsbackend.model.AccountDetails;
 @Slf4j
 public class JwtTokenProvider {
     // Đoạn JWT_SECRET này là bí mật, chỉ có phía server biết
-    private final String JWT_SECRET = "lodaaaaaa";
+    private final String JWT_SECRET = "jwt!@#$%543321";
 
     //Thời gian có hiệu lực của chuỗi jwt
     private final long JWT_EXPIRATION = 604800000L;

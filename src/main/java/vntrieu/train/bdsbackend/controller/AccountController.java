@@ -39,7 +39,7 @@ public class AccountController {
     private JwtTokenProvider tokenProvider;
 
     @PostMapping("/login")
-    public Map<String, Object> authenticateUser(@Valid @RequestBody Account account) {
+    public Map<String, Object> authenticateUser(@RequestBody Account account) {
         // Xác thực từ username và password.
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -60,7 +60,6 @@ public class AccountController {
         rs.put("user", new UserDTO(user));
         rs.put("token", jwt);
         return rs;
-
     }
 
   @PostMapping
