@@ -23,7 +23,7 @@ public class ProductServiceTest {
         p3.setPrice(900000000L);//900M
         p4.setPrice(5000000000L);//5B
 
-        List<Product> data = List.of(p1,p2,p3,p4);
+        List<Product> data = List.of(p0, p1,p2,p3,p4);
 
         //Filter(0: <=500M, 1: (500,1000], 2: (1000,1500], 3: (1500,2000], 4: (2000, infinity))
         List<Product> actualResult1 = productService.filterByPriceRange(data, 0);
@@ -45,6 +45,19 @@ public class ProductServiceTest {
         Product p2 = new Product();
         Product p3 = new Product();
         Product p4 = new Product();
+
+        p0.setTitle("Nhà trong hẻm");
+        p1.setTitle("Biệt thự");
+        p2.setTitle("Nhà mặt tiền");
+        p3.setTitle("Nhà phố");
+        p4.setTitle("Bán đất");
+
+        List<Product> data1 = List.of(p0,p1,p2,p3,p4);
+
+        List<Product> actualResult1 = productService.filterBySearchSTring(data1, "nha");
+        for(Product p : actualResult1){
+            assertEquals(true, p.getTitle().contains("nhà"));
+        }
 
     }
 }
