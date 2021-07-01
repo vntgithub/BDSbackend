@@ -1,21 +1,19 @@
 package vntrieu.train.bdsbackend.service;
 
 import java.util.*;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;;
 import vntrieu.train.bdsbackend.model.*;
-import vntrieu.train.bdsbackend.repository.AddressRepository;
 import vntrieu.train.bdsbackend.repository.ImageRepository;
 import vntrieu.train.bdsbackend.repository.ProductRepository;
+
 @Service
 @AllArgsConstructor
 public class ProductService {
   private final ProductRepository productRepository;
   private final ImageRepository imageRepository;
-  private final AddressRepository addressRepository;
 
   public List<Product> getByUserId(Long userId){
     return productRepository.getByUserId(userId);
@@ -78,7 +76,7 @@ public class ProductService {
 
     List<Product> productsAfterFiltered = new ArrayList<Product>();
     for(Product p : products)
-      if(p.getTitle().contains(searchString))
+      if(p.getTitle().toLowerCase(Locale.ROOT).contains(searchString.toLowerCase(Locale.ROOT)))
         productsAfterFiltered.add(p);
 
      return productsAfterFiltered;
@@ -126,5 +124,6 @@ public class ProductService {
 
     return products;
   }
+
 
 }

@@ -3,15 +3,11 @@ package vntrieu.train.bdsbackend.model;
 import java.util.Collection;
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Data
 @ToString
 public class Street {
@@ -19,9 +15,11 @@ public class Street {
   @SequenceGenerator(name = "street_sequence", sequenceName = "street_sequence", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "street_sequence")
   @Column(name = "id", updatable = false)
+  @NonNull
   private Long id;
 
   @Column(name = "name", nullable = false, columnDefinition = "TEXT")
+  @NonNull
   private String name;
 
   @OneToMany(mappedBy = "street", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -33,6 +31,7 @@ public class Street {
   @JoinColumn(name = "wards_id")
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
+  @NonNull
   private Ward ward;
 
 }

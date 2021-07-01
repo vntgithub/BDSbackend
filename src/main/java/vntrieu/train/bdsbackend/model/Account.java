@@ -6,23 +6,22 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Data
 public class Account {
   @Id
   @Column(name = "username", updatable = false)
-  private String username;
+  @NonNull
+  private  String username;
 
   @Column(name = "password", nullable = false)
-  private String password;
+  @NonNull
+  private  String password;
 
 
   @OneToOne(cascade = CascadeType.ALL)

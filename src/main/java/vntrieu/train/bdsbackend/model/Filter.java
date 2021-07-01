@@ -2,7 +2,10 @@ package vntrieu.train.bdsbackend.model;
 
 
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -15,9 +18,10 @@ import java.util.Map;
 @Entity
 @Table(name = "Filter")
 @TypeDef(name = "json", typeClass = JsonFormatTypes.class)
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class Filter {
-
     @Id
     @SequenceGenerator(name = "filter_sequence", sequenceName = "filter_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "filter_sequence")

@@ -4,24 +4,22 @@ import java.util.Collection;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Data
 public class Category {
   @Id
   @SequenceGenerator(name = "category_sequence", sequenceName = "category_sequence", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_sequence")
   @Column(name = "id", updatable = false)
+  @NonNull
   private Integer id;
 
   @Column(name = "name", nullable = false, columnDefinition = "TEXT")
+  @NonNull
   private String name;
 
   @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -3,24 +3,22 @@ package vntrieu.train.bdsbackend.model;
 import java.util.Collection;
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Data
 public class Ward {
   @Id
   @SequenceGenerator(name = "ward_sequence", sequenceName = "ward_sequence", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ward_sequence")
   @Column(name = "id", updatable = false)
+  @NonNull
   private Long id;
 
   @Column(name = "name", nullable = false, columnDefinition = "TEXT")
+  @NonNull
   private String name;
 
   @OneToMany(mappedBy = "ward", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -32,6 +30,7 @@ public class Ward {
   @JoinColumn(name = "district_id")
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
+  @NonNull
   private District district;
 
   @OneToMany(mappedBy = "ward", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

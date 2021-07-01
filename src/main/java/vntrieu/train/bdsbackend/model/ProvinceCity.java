@@ -3,15 +3,11 @@ package vntrieu.train.bdsbackend.model;
 import java.util.Collection;
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Data
 @Table(name = "province_city")
 public class ProvinceCity {
@@ -19,9 +15,11 @@ public class ProvinceCity {
   @SequenceGenerator(name = "provitecity_sequence", sequenceName = "provincecity_sequence", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "provincecity_sequence")
   @Column(name = "id", updatable = false)
+  @NonNull
   private Integer id;
 
   @Column(name = "name", nullable = false, columnDefinition = "TEXT")
+  @NonNull
   private String name;
 
   @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -6,13 +6,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import vntrieu.train.bdsbackend.dto.AccountDTO;
 import vntrieu.train.bdsbackend.model.Account;
 import vntrieu.train.bdsbackend.model.AccountDetails;
 import vntrieu.train.bdsbackend.model.User;
 import vntrieu.train.bdsbackend.repository.AccountRepository;
-import vntrieu.train.bdsbackend.repository.FilterRepository;
-import vntrieu.train.bdsbackend.repository.UserRepository;
 
 
 @Service
@@ -22,7 +19,6 @@ public class AccountService implements UserDetailsService {
   @Autowired
   private final AccountRepository accountRepository;
 
-  private final UserRepository userRepository;
 
   @Override
   public AccountDetails loadUserByUsername(String username) {

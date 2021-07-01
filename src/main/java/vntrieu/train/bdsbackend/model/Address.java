@@ -2,35 +2,38 @@ package vntrieu.train.bdsbackend.model;
 
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Data
 public class Address {
   @Id
   @SequenceGenerator(name = "address_sequence", sequenceName = "address_sequence", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_sequence")
   @Column(name = "id", updatable = false)
+  @NonNull
   private Long id;
 
   @ManyToOne
   @JoinColumn(name = "street_id")
+  @NonNull
   private Street street;
 
   @ManyToOne
   @JoinColumn(name = "ward_id")
+  @NonNull
   private Ward ward;
 
   @ManyToOne
   @JoinColumn(name = "district_id")
+  @NonNull
   private District district;
 
   @ManyToOne
   @JoinColumn(name = "province_city_id")
+  @NonNull
   private ProvinceCity provinceCity;
 
   @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
