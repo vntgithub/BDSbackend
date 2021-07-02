@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
                 // Lấy username từ chuỗi jwt
                 String username = tokenProvider.getUsernameFromJWT(jwt);
-                // Lấy thông tin người dùng từ id
+                // Lấy thông tin người dùng từ username
                 AccountDetails accountDetails = accountService.loadUserByUsername(username);
                 if (accountDetails != null) {
                     // Nếu người dùng hợp lệ, set thông tin cho Seturity Context

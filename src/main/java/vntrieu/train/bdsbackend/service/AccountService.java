@@ -23,13 +23,15 @@ public class AccountService implements UserDetailsService {
   @Override
   public AccountDetails loadUserByUsername(String username) {
     // Kiểm tra xem user có tồn tại trong database không?
-    Account account = accountRepository.getById(username);
+    Account account = accountRepository.findById(username).get();
     if (account == null) {
       throw new UsernameNotFoundException(username);
     }
+
     return new AccountDetails(account);
   }
   public User getByUsername(String username){return accountRepository.getById(username).getUser();}
+
   public User add(Account account){
     String hashedPassword = BCrypt.hashpw(account.getPassword(), BCrypt.gensalt());
     account.setPassword(hashedPassword);

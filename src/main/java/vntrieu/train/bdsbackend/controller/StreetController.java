@@ -33,7 +33,6 @@ public class StreetController {
 
   @PostMapping
   StreetDTO add(@RequestBody Street s) {
-    System.out.println(s);
     return new StreetDTO(streetService.add(s));
   }
 

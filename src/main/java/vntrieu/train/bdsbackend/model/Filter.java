@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 

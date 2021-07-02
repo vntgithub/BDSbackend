@@ -13,12 +13,13 @@ import java.util.Collections;
 @AllArgsConstructor
 public class AccountDetails implements UserDetails {
 
-    Account account;
+    private Account account;
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Mặc định mình sẽ để tất cả là ROLE_USER. Để demo cho đơn giản.
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+        return Collections.singleton(new SimpleGrantedAuthority(account.getRole().getName()));
     }
 
     @Override

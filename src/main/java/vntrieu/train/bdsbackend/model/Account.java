@@ -1,11 +1,6 @@
 package vntrieu.train.bdsbackend.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import lombok.*;
 
@@ -23,6 +18,10 @@ public class Account {
   @NonNull
   private  String password;
 
+  @ManyToOne
+  @JoinColumn(name = "role_id", referencedColumnName = "id")
+  @NonNull
+  private Role role;
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id")
