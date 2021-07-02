@@ -35,9 +35,11 @@ public class CategoryController {
   @PostMapping
   CategoryDTO add(@RequestBody Category c){return new CategoryDTO(categoryService.add(c));}
 
+  @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
   @PutMapping
   CategoryDTO update(@RequestBody Category c){return new CategoryDTO(categoryService.update(c));}
 
+  @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
   @DeleteMapping("/{id}")
   String delete(@PathVariable Integer id){return categoryService.delete(id);}
 }

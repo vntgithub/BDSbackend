@@ -3,6 +3,7 @@ package vntrieu.train.bdsbackend.controller;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.util.PerformanceSensitive;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -69,5 +70,6 @@ public class AccountController {
   String update(@RequestBody Account a){return accountService.update(a);}
 
   @DeleteMapping
+  @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
   String delete(@PathVariable String username){return accountService.delete(username);}
 }

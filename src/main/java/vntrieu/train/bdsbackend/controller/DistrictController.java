@@ -3,6 +3,7 @@ package vntrieu.train.bdsbackend.controller;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,15 +41,19 @@ public class DistrictController {
     return rs;
   }
   @PostMapping
+  @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
   DistrictDTO add(@RequestBody District d) {
     return new DistrictDTO(districtService.add(d));
   }
 
   @PutMapping
+  @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
   DistrictDTO update(@RequestBody District d) {
     return new DistrictDTO(districtService.update(d));
   }
+
   @DeleteMapping("/{id}")
+  @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
   String delete(@PathVariable Long id) {
     districtService.delete(id);
     return "Deleted!";

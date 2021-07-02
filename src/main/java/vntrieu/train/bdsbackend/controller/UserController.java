@@ -2,6 +2,7 @@ package vntrieu.train.bdsbackend.controller;
 
 import lombok.AllArgsConstructor;
 import org.dom4j.util.UserDataAttribute;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,7 @@ public class UserController {
   }
 
   @DeleteMapping("/{id}")
+  @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
   String delete(@PathVariable Long id){
     return userService.delete(id);
   }
