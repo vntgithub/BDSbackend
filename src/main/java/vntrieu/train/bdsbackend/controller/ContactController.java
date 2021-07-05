@@ -1,18 +1,14 @@
 package vntrieu.train.bdsbackend.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import vntrieu.train.bdsbackend.dto.ContactDTO;
 import vntrieu.train.bdsbackend.model.Contact;
 import vntrieu.train.bdsbackend.service.ContactService;
 @RestController
 @RequestMapping("/contact")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000/")
 public class ContactController {
   private final ContactService contactService;
 

@@ -8,6 +8,7 @@ import vntrieu.train.bdsbackend.service.FilterService;
 
 @RestController
 @RequestMapping("/filter")
+@CrossOrigin(origins = "http://localhost:3000/")
 @AllArgsConstructor
 public class FilterController {
   private final FilterService filterService;
