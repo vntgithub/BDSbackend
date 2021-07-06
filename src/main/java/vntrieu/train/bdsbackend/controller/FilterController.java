@@ -20,6 +20,7 @@ public class FilterController {
 
   @PostMapping
   FilterDTO add(@RequestBody Filter filter){
+    System.out.println(filter);
     return new FilterDTO(filterService.add(filter));
   }
 

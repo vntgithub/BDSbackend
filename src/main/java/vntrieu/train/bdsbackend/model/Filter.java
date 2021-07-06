@@ -1,22 +1,26 @@
 package vntrieu.train.bdsbackend.model;
 
 
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
 
 import javax.persistence.*;
 
-import java.util.Map;
 
 
 @Entity
 @Table(name = "Filter")
-@TypeDef(name = "json", typeClass = JsonFormatTypes.class)
+@TypeDefs({
+        @TypeDef(name = "ContentType", typeClass = ContentType.class)
+        ,
+        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+})
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -30,8 +34,9 @@ public class Filter {
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private User user;
 
-    @Convert(converter = HashMapConverter.class, disableConversion = true)
-    @Type( type = "json" )
-    private Map<String, Object> content;
+
+    @Column(name = "content", columnDefinition = "jsonb")
+    @Type(type = "ContentType")
+    private Content content;
 
 }

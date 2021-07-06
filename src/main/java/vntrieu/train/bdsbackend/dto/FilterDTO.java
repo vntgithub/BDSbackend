@@ -4,6 +4,8 @@ package vntrieu.train.bdsbackend.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vntrieu.train.bdsbackend.model.Content;
+import vntrieu.train.bdsbackend.model.ContentType;
 import vntrieu.train.bdsbackend.model.Filter;
 
 import java.util.Map;
@@ -14,7 +16,7 @@ import java.util.Map;
 public class FilterDTO {
 
     private Long id;
-    private Map<String, Object> content;
+    private Content content;
 
     public FilterDTO (Filter filter) {
         this.id = filter.getId();
