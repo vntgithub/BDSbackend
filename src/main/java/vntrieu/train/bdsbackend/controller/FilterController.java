@@ -6,6 +6,9 @@ import vntrieu.train.bdsbackend.dto.FilterDTO;
 import vntrieu.train.bdsbackend.model.Filter;
 import vntrieu.train.bdsbackend.service.FilterService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/filter")
 @CrossOrigin(origins = "http://localhost:3000/")
@@ -14,8 +17,12 @@ public class FilterController {
   private final FilterService filterService;
 
   @GetMapping("/{id}")
-  FilterDTO getByUserId(@PathVariable Long id){
-    return new FilterDTO(filterService.getByUserId(id));
+  List<FilterDTO> getByUserId(@PathVariable Long id){
+    List<FilterDTO> resData = new ArrayList<FilterDTO>();
+    List<Filter> listFilter = filterService.getByUserId(id);
+    for(Filter f : listFilter)
+      resData.add(new FilterDTO(f));
+    return resData;
   }
 
   @PostMapping

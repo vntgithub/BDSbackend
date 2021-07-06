@@ -5,12 +5,14 @@ import org.springframework.stereotype.Service;
 import vntrieu.train.bdsbackend.model.Filter;
 import vntrieu.train.bdsbackend.repository.FilterRepository;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class FilterService {
   private final FilterRepository filterRepository;
 
-  public Filter getByUserId(Long id){return filterRepository.getByUserId(id);}
+  public List<Filter> getByUserId(Long id){return filterRepository.getByUserId(id);}
 
   public Filter add(Filter filter){return filterRepository.save(filter);}
 
