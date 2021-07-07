@@ -17,7 +17,9 @@ import vntrieu.train.bdsbackend.model.AccountDetails;
 import vntrieu.train.bdsbackend.model.User;
 import vntrieu.train.bdsbackend.service.AccountService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +37,8 @@ public class AccountController {
     private JwtTokenProvider tokenProvider;
 
     @PostMapping("/login")
-    public Map<String, Object> authenticateUser(@RequestBody Account account) {
+    public Map<String, Object> authenticateUser(@RequestBody Account account, HttpServletRequest request) {
+
         // Xác thực từ username và password.
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -58,8 +61,14 @@ public class AccountController {
         return rs;
     }
 
+  @GetMapping
+  UserDTO loginBytoken(HttpServletRequest request){
+      String username = request.getUserPrincipal().getName();
+      return new UserDTO(accountService.getByUsername(username));
+    }
+
   @PostMapping
-  UserDTO sigin(@RequestBody Account account){return new UserDTO(accountService.add(account));}
+  UserDTO signup(@RequestBody Account account){return new UserDTO(accountService.add(account));}
 
   @PutMapping
   String update(@RequestBody Account a){return accountService.update(a);}
