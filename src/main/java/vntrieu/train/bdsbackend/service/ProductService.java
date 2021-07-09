@@ -1,5 +1,6 @@
 package vntrieu.train.bdsbackend.service;
 
+import org.springframework.data.domain.Pageable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,11 @@ import vntrieu.train.bdsbackend.repository.ProductRepository;
 public class ProductService {
   private final ProductRepository productRepository;
   private final ImageRepository imageRepository;
+
+  public List<Product> getProduct(Pageable page){
+    return productRepository.findAllBy(page);
+  }
+
 
   public List<Product> getByUserId(Long userId){
     return productRepository.getByUserId(userId);

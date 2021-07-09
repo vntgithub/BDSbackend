@@ -2,17 +2,15 @@ package vntrieu.train.bdsbackend.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import vntrieu.train.bdsbackend.dto.ProductDTO;
-import vntrieu.train.bdsbackend.model.Address;
-import vntrieu.train.bdsbackend.model.Filter;
 import vntrieu.train.bdsbackend.model.Product;
 import vntrieu.train.bdsbackend.service.AddressService;
 import vntrieu.train.bdsbackend.service.ProductService;
+
 @RestController
 @RequestMapping("/product")
 @CrossOrigin(origins = "http://localhost:3000/")
@@ -20,6 +18,17 @@ import vntrieu.train.bdsbackend.service.ProductService;
 public class ProductController {
   private final ProductService productService;
   private final AddressService addressService;
+
+  @GetMapping("/page/{index}")
+  List<ProductDTO> get(@PathVariable Short index) {
+    Pageable page = PageRequest.of(index, 8);
+    List<Product> data = productService.getProduct(page);
+    List<ProductDTO> dataRes = new ArrayList<ProductDTO>();
+    for(Product item : data){
+      dataRes.add(new ProductDTO(item));
+    }
+    return dataRes;
+  }
 
   @GetMapping("/{userId}")
   List<ProductDTO> getByUserId(@PathVariable Long userId){

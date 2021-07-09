@@ -1,11 +1,14 @@
 package vntrieu.train.bdsbackend.repository;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import vntrieu.train.bdsbackend.model.Product;
 
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends PagingAndSortingRepository<Product, Long> {
+
+  List<Product> findAllBy(Pageable page);
 
   @Query("SELECT p FROM Product  p WHERE p.user.id=?1")
   public List<Product> getByUserId(Long id);
