@@ -126,7 +126,7 @@ public class ProductService {
       }
     }
 
-    if(searchString != null && products == null){
+    if(searchString != null){
       if(products == null)
         products = productRepository.searchByString(searchString.toLowerCase(Locale.ROOT));
       else{
