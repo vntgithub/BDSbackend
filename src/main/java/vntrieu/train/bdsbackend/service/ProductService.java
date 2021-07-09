@@ -103,7 +103,6 @@ public class ProductService {
 
     List<Product> products = null;
 
-
     if(streetId != null)
       products = productRepository.searchByStreet(streetId);
     if(wardId != null && products == null)
@@ -127,9 +126,9 @@ public class ProductService {
       }
     }
 
-    if(searchString != null){
+    if(searchString != null && products == null){
       if(products == null)
-        products = productRepository.searchByString(searchString);
+        products = productRepository.searchByString(searchString.toLowerCase(Locale.ROOT));
       else{
         products = filterBySearchSTring(products, searchString);
       }
