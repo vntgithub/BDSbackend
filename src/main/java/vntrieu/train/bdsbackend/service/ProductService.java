@@ -16,17 +16,24 @@ public class ProductService {
   private final ProductRepository productRepository;
   private final ImageRepository imageRepository;
 
+  public Long getNumberOfPage(){
+    Long numberOfProduct = productRepository.getNumberOfPage();
+    Long n =  numberOfProduct/10;
+    Short m = (short) (numberOfProduct%10);
+    if(m != 0)
+      return n + 1;
+    return n;
+  }
+
   public List<Product> getProduct(Pageable page){
     return productRepository.findAllBy(page);
   }
-
 
   public List<Product> getByUserId(Long userId){
     return productRepository.getByUserId(userId);
   }
 
   public Product add(Product p){
-
     Product newProduct =  productRepository.save(p);
     Collection<Image> listImage =  newProduct.getImages();
     for(Image i : listImage){

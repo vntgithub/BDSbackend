@@ -8,6 +8,9 @@ import vntrieu.train.bdsbackend.model.Product;
 
 public interface ProductRepository extends PagingAndSortingRepository<Product, Long> {
 
+  @Query("SELECT count(id) from Product ")
+  Long getNumberOfPage();
+
   List<Product> findAllBy(Pageable page);
 
   @Query("SELECT p FROM Product  p WHERE p.user.id=?1")

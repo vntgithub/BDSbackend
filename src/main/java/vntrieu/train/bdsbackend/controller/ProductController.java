@@ -19,6 +19,9 @@ public class ProductController {
   private final ProductService productService;
   private final AddressService addressService;
 
+  @GetMapping("/numberofpage")
+  Long getNumberOfPage(){return productService.getNumberOfPage();}
+
   @GetMapping("/page/{index}")
   List<ProductDTO> get(@PathVariable Short index) {
     Pageable page = PageRequest.of(index, 8);
