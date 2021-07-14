@@ -11,8 +11,7 @@ import lombok.*;
 @Data
 public class District {
   @Id
-  @SequenceGenerator(name = "district_sequence", sequenceName = "district_sequence", allocationSize = 1)
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "district_sequence")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false)
   @NonNull
   private Long id;

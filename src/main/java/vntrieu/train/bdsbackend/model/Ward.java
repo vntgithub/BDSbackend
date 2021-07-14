@@ -11,8 +11,7 @@ import lombok.*;
 @Data
 public class Ward {
   @Id
-  @SequenceGenerator(name = "ward_sequence", sequenceName = "ward_sequence", allocationSize = 1)
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ward_sequence")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false)
   @NonNull
   private Long id;

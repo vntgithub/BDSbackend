@@ -12,8 +12,7 @@ import lombok.*;
 @ToString
 public class Street {
   @Id
-  @SequenceGenerator(name = "street_sequence", sequenceName = "street_sequence", allocationSize = 1)
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "street_sequence")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false)
   @NonNull
   private Long id;

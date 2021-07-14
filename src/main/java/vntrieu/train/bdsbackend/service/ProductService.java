@@ -13,6 +13,7 @@ import vntrieu.train.bdsbackend.repository.ProductRepository;
 @Service
 @AllArgsConstructor
 public class ProductService {
+
   private final ProductRepository productRepository;
   private final ImageRepository imageRepository;
 
@@ -40,6 +41,7 @@ public class ProductService {
       i.setProduct(newProduct);
       imageRepository.save(i);
     }
+    //
     return newProduct;
   }
 
@@ -122,13 +124,13 @@ public class ProductService {
           default: products =  productRepository.searchByPrice2000();
         }
       }else{
-        filterByPriceRange(products, priceRange);
+        products = filterByPriceRange(products, priceRange);
       }
     }
 
     if(searchString != null){
       if(products == null)
-        products = productRepository.searchByString(searchString.toLowerCase(Locale.ROOT));
+        products = productRepository.searchByString(searchString);
       else{
         products = filterBySearchSTring(products, searchString);
       }

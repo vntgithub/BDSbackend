@@ -5,6 +5,8 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import vntrieu.train.bdsbackend.RabbitMQ.Message;
+import vntrieu.train.bdsbackend.RabbitMQ.RabbitMQSender;
 import vntrieu.train.bdsbackend.dto.ProvinceCityDTO;
 import vntrieu.train.bdsbackend.model.ProvinceCity;
 import vntrieu.train.bdsbackend.service.ProvinceCityService;
@@ -14,6 +16,7 @@ import vntrieu.train.bdsbackend.service.ProvinceCityService;
 @RequestMapping("/province_city")
 @CrossOrigin(origins = "http://localhost:3000/")
 public class ProviteCityController {
+
   private final ProvinceCityService provinceCityServiceervice;
 
   @GetMapping("")

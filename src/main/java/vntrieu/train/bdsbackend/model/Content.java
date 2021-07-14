@@ -3,10 +3,7 @@ package vntrieu.train.bdsbackend.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import vntrieu.train.bdsbackend.dto.DistrictDTO;
-import vntrieu.train.bdsbackend.dto.ProvinceCityDTO;
-import vntrieu.train.bdsbackend.dto.StreetDTO;
-import vntrieu.train.bdsbackend.dto.WardDTO;
+
 
 import java.io.Serializable;
 
@@ -14,11 +11,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 public class Content implements Serializable {
-    private String search;
+    private String searchString;
     private Short priceRange;
-    private Object provinceCity;
-    private Object district;
-    private Object ward;
-    private Object street;
+    private Integer provinceCityId;
+    private Long districtId;
+    private Long wardId;
+    private Long streetId;
     private Boolean lease;
 }

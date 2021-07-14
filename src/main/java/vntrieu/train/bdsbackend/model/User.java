@@ -19,8 +19,7 @@ import lombok.ToString;
 @Table(name = "person")
 public class User {
   @Id
-  @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false)
   private Long id;
 
@@ -37,22 +36,17 @@ public class User {
   @Column(name = "avt", nullable = false)
   private String avt;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "address_id", referencedColumnName = "id")
   private Address address;
 
-  @OneToOne(mappedBy = "user")
-  private Account account;
 
-  @OneToOne(cascade = CascadeType.ALL)
+
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "contact_id")
   private Contact contact;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private Collection<Product> products;
 
-  @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-  private Filter filter;
+
+
 }

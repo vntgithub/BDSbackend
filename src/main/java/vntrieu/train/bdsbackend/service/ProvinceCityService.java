@@ -9,6 +9,7 @@ import vntrieu.train.bdsbackend.repository.ProvinceCityRepository;
 @Service
 @AllArgsConstructor
 public class ProvinceCityService {
+
   private final ProvinceCityRepository repository;
 
   public List<ProvinceCity> getAll(){

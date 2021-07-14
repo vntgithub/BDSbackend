@@ -16,7 +16,7 @@ import java.util.Map;
 public class FilterDTO {
 
     private Long id;
-    private Content content;
+    private Object content;
 
     public FilterDTO (Filter filter) {
         this.id = filter.getId();

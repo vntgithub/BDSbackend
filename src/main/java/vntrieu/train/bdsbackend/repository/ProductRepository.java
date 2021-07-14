@@ -13,6 +13,8 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 
   List<Product> findAllBy(Pageable page);
 
+  List<Product> findAllByTitleContaining(String title);
+
   @Query("SELECT p FROM Product  p WHERE p.user.id=?1")
   public List<Product> getByUserId(Long id);
 
@@ -44,6 +46,8 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
   @Query("SELECT p FROM Product p  WHERE p.price >2000000000 ")
   public List<Product> searchByPrice2000();
 
-  @Query("SELECT p FROM Product p  WHERE LOWER(p.title) like %?1% ")
+  @Query("SELECT p FROM Product p WHERE LOWER(p.title) like %?1% ")
   public List<Product> searchByString(String searchString);
+
+
 }

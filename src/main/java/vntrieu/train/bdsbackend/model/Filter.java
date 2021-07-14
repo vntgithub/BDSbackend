@@ -26,8 +26,7 @@ import javax.persistence.*;
 @Data
 public class Filter {
     @Id
-    @SequenceGenerator(name = "filter_sequence", sequenceName = "filter_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "filter_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -37,6 +36,6 @@ public class Filter {
 
     @Column(name = "content", columnDefinition = "jsonb")
     @Type(type = "ContentType")
-    private Content content;
+    private Object content;
 
 }

@@ -12,8 +12,7 @@ import lombok.*;
 @Table(name = "province_city")
 public class ProvinceCity {
   @Id
-  @SequenceGenerator(name = "provitecity_sequence", sequenceName = "provincecity_sequence", allocationSize = 1)
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "provincecity_sequence")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false)
   @NonNull
   private Integer id;
