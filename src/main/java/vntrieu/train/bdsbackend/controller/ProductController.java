@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import vntrieu.train.bdsbackend.dto.ProductDTO;
 import vntrieu.train.bdsbackend.model.Product;
-import vntrieu.train.bdsbackend.service.AddressService;
 import vntrieu.train.bdsbackend.service.ProductService;
 
 @RestController
@@ -17,7 +16,6 @@ import vntrieu.train.bdsbackend.service.ProductService;
 @AllArgsConstructor
 public class ProductController {
   private final ProductService productService;
-  private final AddressService addressService;
 
   @GetMapping("/numberofpage")
   Long getNumberOfPage(){return productService.getNumberOfPage();}

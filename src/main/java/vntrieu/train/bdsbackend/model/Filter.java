@@ -5,13 +5,14 @@ import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 
 import javax.persistence.*;
-
+import java.util.HashMap;
 
 
 @Entity
@@ -31,11 +32,12 @@ public class Filter {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "id")
+    @ToString.Exclude
     private User user;
 
 
     @Column(name = "content", columnDefinition = "jsonb")
     @Type(type = "ContentType")
-    private Object content;
+    private HashMap<String, Object> content;
 
 }

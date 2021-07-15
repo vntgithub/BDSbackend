@@ -5,6 +5,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
+import org.json.JSONObject;
 
 
 import java.io.*;
@@ -12,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.HashMap;
 
 public class ContentType implements UserType {
     @Override
@@ -20,8 +22,8 @@ public class ContentType implements UserType {
     }
 
     @Override
-    public Class<Content> returnedClass() {
-        return Content.class;
+    public Class<HashMap> returnedClass() {
+        return HashMap.class;
     }
     @Override
     public Object nullSafeGet( ResultSet rs,  String[] names,  SharedSessionContractImplementor  session,

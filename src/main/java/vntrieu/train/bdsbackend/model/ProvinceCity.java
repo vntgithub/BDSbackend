@@ -21,14 +21,5 @@ public class ProvinceCity {
   @NonNull
   private String name;
 
-  @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private Collection<Address> address;
-
-  @OneToMany(mappedBy = "provinceCity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private Collection<District> districts;
 
 }

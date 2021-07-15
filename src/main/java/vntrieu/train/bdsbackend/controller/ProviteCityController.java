@@ -5,8 +5,6 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import vntrieu.train.bdsbackend.RabbitMQ.Message;
-import vntrieu.train.bdsbackend.RabbitMQ.RabbitMQSender;
 import vntrieu.train.bdsbackend.dto.ProvinceCityDTO;
 import vntrieu.train.bdsbackend.model.ProvinceCity;
 import vntrieu.train.bdsbackend.service.ProvinceCityService;

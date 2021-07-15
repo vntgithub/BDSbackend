@@ -1,12 +1,19 @@
 package vntrieu.train.bdsbackend.service;
 
+
+import org.hibernate.type.ObjectType;
+import org.json.JSONObject;
 import org.springframework.data.domain.Pageable;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;;
+import vntrieu.train.bdsbackend.RabbitMQ.RabbitMQSender;
+import vntrieu.train.bdsbackend.dto.ContactDTO;
+import vntrieu.train.bdsbackend.dto.ProductDTO;
 import vntrieu.train.bdsbackend.model.*;
+import vntrieu.train.bdsbackend.repository.FilterRepository;
 import vntrieu.train.bdsbackend.repository.ImageRepository;
 import vntrieu.train.bdsbackend.repository.ProductRepository;
 
@@ -16,6 +23,10 @@ public class ProductService {
 
   private final ProductRepository productRepository;
   private final ImageRepository imageRepository;
+  private final FilterRepository filterRepository;
+  private final RabbitMQSender rabbitMQSender;
+
+
 
   public Long getNumberOfPage(){
     Long numberOfProduct = productRepository.getNumberOfPage();
@@ -34,14 +45,36 @@ public class ProductService {
     return productRepository.getByUserId(userId);
   }
 
+
+
   public Product add(Product p){
+
+    JSONObject searchObj = new JSONObject();
+
+    //Add product
     Product newProduct =  productRepository.save(p);
     Collection<Image> listImage =  newProduct.getImages();
     for(Image i : listImage){
       i.setProduct(newProduct);
       imageRepository.save(i);
     }
-    //
+    //Get list filter from product information
+    HashMap<String, Object> ob = new HashMap<String, Object>();
+
+    ob.put("streetId", newProduct.getAddress().getStreet().getId());
+    ob.put("wardId", newProduct.getAddress().getWard().getId());
+    ob.put("districtId", newProduct.getAddress().getDistrict().getId());
+    ob.put("provinceCityId", newProduct.getAddress().getProvinceCity().getId());
+
+    List<Filter> list = filterRepository.findAllByContent(ob);
+    for(Filter c : list){
+      HashMap<String, Object> messageSendToMailService = new HashMap<String, Object>();
+      messageSendToMailService.put("contact", c.getUser().getContact());
+      messageSendToMailService.put("product", new ProductDTO(newProduct));
+      rabbitMQSender.send(messageSendToMailService);
+    }
+
+
     return newProduct;
   }
 

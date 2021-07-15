@@ -20,10 +20,6 @@ public class Ward {
   @NonNull
   private String name;
 
-  @OneToMany(mappedBy = "ward", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private Collection<Address> address;
 
   @ManyToOne
   @JoinColumn(name = "district_id")
@@ -31,10 +27,5 @@ public class Ward {
   @ToString.Exclude
   @NonNull
   private District district;
-
-  @OneToMany(mappedBy = "ward", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private Collection<Street> streets;
 
 }

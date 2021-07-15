@@ -36,9 +36,11 @@ public class Address {
   private ProvinceCity provinceCity;
 
   @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
+  @ToString.Exclude
   private User user;
 
   @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
+  @ToString.Exclude
   private Product product;
 
 }

@@ -21,11 +21,6 @@ public class Street {
   @NonNull
   private String name;
 
-  @OneToMany(mappedBy = "street", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private Collection<Address> address;
-
   @ManyToOne
   @JoinColumn(name = "wards_id")
   @EqualsAndHashCode.Exclude
