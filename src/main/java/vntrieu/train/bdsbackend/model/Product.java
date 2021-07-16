@@ -51,7 +51,7 @@ public class Product {
   @JoinColumn(name = "category_id")
   private Category category;
 
-  @OneToMany(mappedBy = "product")
+  @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
   private Collection<Image> images;
 
   @ManyToOne
@@ -72,5 +72,6 @@ public class Product {
 
   @Column(name = "legal_infor", nullable = false)
   private String legalInfor;
+
 
 }

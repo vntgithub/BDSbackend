@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;;
 import vntrieu.train.bdsbackend.RabbitMQ.RabbitMQSender;
+import vntrieu.train.bdsbackend.dto.AddressDTO;
 import vntrieu.train.bdsbackend.dto.ContactDTO;
 import vntrieu.train.bdsbackend.dto.ProductDTO;
 import vntrieu.train.bdsbackend.model.*;
@@ -58,7 +59,7 @@ public class ProductService {
       i.setProduct(newProduct);
       imageRepository.save(i);
     }
-    //Get list filter from product information
+//    Get list filter from product information
     HashMap<String, Object> ob = new HashMap<String, Object>();
 
     ob.put("streetId", newProduct.getAddress().getStreet().getId());
@@ -69,8 +70,10 @@ public class ProductService {
     List<Filter> list = filterRepository.findAllByContent(ob);
     for(Filter c : list){
       HashMap<String, Object> messageSendToMailService = new HashMap<String, Object>();
-      messageSendToMailService.put("contact", c.getUser().getContact());
-      messageSendToMailService.put("product", new ProductDTO(newProduct));
+      messageSendToMailService.put("contact", new ContactDTO(c.getUser().getContact()));
+      messageSendToMailService.put("productTitle", p.getTitle());
+      messageSendToMailService.put("address", new AddressDTO(p.getAddress()).getAddressString());
+      messageSendToMailService.put("price", p.getPrice());
       rabbitMQSender.send(messageSendToMailService);
     }
 
