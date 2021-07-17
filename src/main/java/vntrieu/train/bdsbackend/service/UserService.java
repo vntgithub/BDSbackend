@@ -1,14 +1,15 @@
 package vntrieu.train.bdsbackend.service;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vntrieu.train.bdsbackend.model.User;
 import vntrieu.train.bdsbackend.repository.UserRepository;
 
 @Service
-@AllArgsConstructor
 public class UserService {
-  private final UserRepository repository;
+
+  @Autowired
+  private  UserRepository repository;
 
   public User getById(Long id) {
     return repository.getById(id);

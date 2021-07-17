@@ -1,31 +1,35 @@
 package vntrieu.train.bdsbackend.service;
 
 
-import org.hibernate.type.ObjectType;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;;
+import vntrieu.train.bdsbackend.RabbitMQ.RabbitMQMessage;
 import vntrieu.train.bdsbackend.RabbitMQ.RabbitMQSender;
 import vntrieu.train.bdsbackend.dto.AddressDTO;
 import vntrieu.train.bdsbackend.dto.ContactDTO;
-import vntrieu.train.bdsbackend.dto.ProductDTO;
 import vntrieu.train.bdsbackend.model.*;
 import vntrieu.train.bdsbackend.repository.FilterRepository;
 import vntrieu.train.bdsbackend.repository.ImageRepository;
 import vntrieu.train.bdsbackend.repository.ProductRepository;
 
 @Service
-@AllArgsConstructor
 public class ProductService {
 
-  private final ProductRepository productRepository;
-  private final ImageRepository imageRepository;
-  private final FilterRepository filterRepository;
-  private final RabbitMQSender rabbitMQSender;
+  @Autowired
+  private  ProductRepository productRepository;
+
+  @Autowired
+  private  ImageRepository imageRepository;
+
+  @Autowired
+  private  FilterRepository filterRepository;
+
+  @Autowired
+  private  RabbitMQSender rabbitMQSender;
 
 
 
@@ -60,22 +64,28 @@ public class ProductService {
       imageRepository.save(i);
     }
 //    Get list filter from product information
-    HashMap<String, Object> ob = new HashMap<String, Object>();
+    HashMap<String, Object> objSearch = new HashMap<String, Object>();
 
-    ob.put("streetId", newProduct.getAddress().getStreet().getId());
-    ob.put("wardId", newProduct.getAddress().getWard().getId());
-    ob.put("districtId", newProduct.getAddress().getDistrict().getId());
-    ob.put("provinceCityId", newProduct.getAddress().getProvinceCity().getId());
+    objSearch.put("streetId", newProduct.getAddress().getStreet().getId());
+    objSearch.put("wardId", newProduct.getAddress().getWard().getId());
+    objSearch.put("districtId", newProduct.getAddress().getDistrict().getId());
+    objSearch.put("provinceCityId", newProduct.getAddress().getProvinceCity().getId());
 
-    List<Filter> list = filterRepository.findAllByContent(ob);
+    List<Filter> list = filterRepository.findAllByContent(objSearch);
+
     for(Filter c : list){
-      HashMap<String, Object> messageSendToMailService = new HashMap<String, Object>();
-      messageSendToMailService.put("contact", new ContactDTO(c.getUser().getContact()));
-      messageSendToMailService.put("productTitle", p.getTitle());
-      messageSendToMailService.put("address", new AddressDTO(p.getAddress()).getAddressString());
-      messageSendToMailService.put("price", p.getPrice());
-      rabbitMQSender.send(messageSendToMailService);
+      ContactDTO contact = new ContactDTO(c.getUser().getContact());
+      RabbitMQMessage  mess = new RabbitMQMessage(
+              c.getUser().getName(),
+              p.getTitle(),
+              new AddressDTO(p.getAddress()).getAddressString(),
+              p.getPrice(),
+              contact.getEmail(),
+              contact.getPhoneNumber()
+              );
+      rabbitMQSender.send(mess);
     }
+
 
 
     return newProduct;
@@ -174,6 +184,5 @@ public class ProductService {
 
     return products;
   }
-
 
 }

@@ -1,15 +1,16 @@
 package vntrieu.train.bdsbackend.service;
 
 import java.util.List;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vntrieu.train.bdsbackend.model.Category;
 
 import vntrieu.train.bdsbackend.repository.CategoryRepository;
-@AllArgsConstructor
 @Service
 public class CategoryService {
-  private final CategoryRepository repository;
+
+  @Autowired
+  private  CategoryRepository repository;
 
   public List<Category> getAll(){return repository.findAll();}
 

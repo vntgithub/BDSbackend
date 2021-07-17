@@ -41,7 +41,8 @@ public class User {
   private Address address;
 
 
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "contact_id", referencedColumnName = "id")
   private Contact contact;
 
 

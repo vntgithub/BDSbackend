@@ -13,11 +13,10 @@ import vntrieu.train.bdsbackend.repository.AccountRepository;
 
 
 @Service
-@AllArgsConstructor
 public class AccountService implements UserDetailsService {
 
   @Autowired
-  private final AccountRepository accountRepository;
+  private  AccountRepository accountRepository;
 
 
   @Override

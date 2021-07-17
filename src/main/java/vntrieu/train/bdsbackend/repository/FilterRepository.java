@@ -9,11 +9,13 @@ import vntrieu.train.bdsbackend.model.Filter;
 import java.util.HashMap;
 import java.util.List;
 
-public interface FilterRepository extends JpaRepository<Filter, Long> {
+public interface FilterRepository extends JpaRepository<Filter, Long>{
 
   @Query("SELECT f FROM Filter f WHERE f.user.id=?1")
   public List<Filter> getByUserId(Long id);
 
-
   public List<Filter> findAllByContent(HashMap<String, Object> ob);
+
+
+
 }

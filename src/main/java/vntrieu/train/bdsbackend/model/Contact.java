@@ -24,8 +24,7 @@ public class Contact {
   private String phoneNumber;
 
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id", referencedColumnName = "id")
+  @OneToOne(fetch = FetchType.LAZY, mappedBy = "contact")
   @ToString.Exclude
   private User user;
 

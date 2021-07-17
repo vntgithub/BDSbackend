@@ -73,7 +73,7 @@ public class AccountController {
   @PutMapping
   String update(@RequestBody Account a){return accountService.update(a);}
 
-  @DeleteMapping
+  @DeleteMapping("/{username}")
   @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
   String delete(@PathVariable String username){return accountService.delete(username);}
 }

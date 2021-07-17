@@ -1,15 +1,15 @@
 package vntrieu.train.bdsbackend.service;
 
 import java.util.List;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vntrieu.train.bdsbackend.model.Ward;
 import vntrieu.train.bdsbackend.repository.WardRepository;
 
-@AllArgsConstructor
 @Service
 public class WardService {
-  private final WardRepository repository;
+  @Autowired
+  private  WardRepository repository;
 
   public List<Ward> filter(Long id) {
     return repository.filterByDistrictId(id);

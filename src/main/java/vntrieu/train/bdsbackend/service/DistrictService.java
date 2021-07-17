@@ -1,17 +1,17 @@
 package vntrieu.train.bdsbackend.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vntrieu.train.bdsbackend.dto.DistrictDTO;
 import vntrieu.train.bdsbackend.model.District;
 import vntrieu.train.bdsbackend.repository.DistrictRepository;
 
 @Service
-@AllArgsConstructor
 public class DistrictService {
-  private final DistrictRepository repository;
+
+  @Autowired
+  private  DistrictRepository repository;
 
   public List<District> getAll(){
     return repository.findAll();

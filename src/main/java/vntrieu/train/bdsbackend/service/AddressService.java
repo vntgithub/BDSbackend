@@ -1,15 +1,16 @@
 package vntrieu.train.bdsbackend.service;
 
 import java.util.List;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vntrieu.train.bdsbackend.model.Address;
 import vntrieu.train.bdsbackend.repository.AddressRepository;
 
-@AllArgsConstructor
 @Service
 public class AddressService {
-  private final AddressRepository repository;
+  @Autowired
+
+  private  AddressRepository repository;
 
   public Address getByUserId(Long id){
     return repository.getByUserId(id);

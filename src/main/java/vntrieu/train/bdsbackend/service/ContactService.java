@@ -1,14 +1,14 @@
 package vntrieu.train.bdsbackend.service;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vntrieu.train.bdsbackend.model.Contact;
 import vntrieu.train.bdsbackend.repository.ContactRepository;
 
-@AllArgsConstructor
 @Service
 public class ContactService {
-  private final ContactRepository repository;
+  @Autowired
+  private  ContactRepository repository;
 
   public Contact update(Contact c){
     if(repository.existsById(c.getId()))

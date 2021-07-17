@@ -1,6 +1,6 @@
 package vntrieu.train.bdsbackend.service;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vntrieu.train.bdsbackend.model.Filter;
 import vntrieu.train.bdsbackend.repository.FilterRepository;
@@ -8,9 +8,10 @@ import vntrieu.train.bdsbackend.repository.FilterRepository;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class FilterService {
-  private final FilterRepository filterRepository;
+
+  @Autowired
+  private  FilterRepository filterRepository;
 
   public List<Filter> getByUserId(Long id){return filterRepository.getByUserId(id);}
 
