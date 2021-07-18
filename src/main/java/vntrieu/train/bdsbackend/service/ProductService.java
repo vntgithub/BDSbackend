@@ -12,6 +12,7 @@ import vntrieu.train.bdsbackend.RabbitMQ.RabbitMQSender;
 import vntrieu.train.bdsbackend.dto.AddressDTO;
 import vntrieu.train.bdsbackend.dto.ContactDTO;
 import vntrieu.train.bdsbackend.model.*;
+import vntrieu.train.bdsbackend.repository.ContactRepository;
 import vntrieu.train.bdsbackend.repository.FilterRepository;
 import vntrieu.train.bdsbackend.repository.ImageRepository;
 import vntrieu.train.bdsbackend.repository.ProductRepository;
@@ -21,6 +22,9 @@ public class ProductService {
 
   @Autowired
   private  ProductRepository productRepository;
+
+  @Autowired
+  private ContactRepository contactRepository;
 
   @Autowired
   private  ImageRepository imageRepository;
@@ -51,10 +55,19 @@ public class ProductService {
   }
 
 
+  public String getPriceRangeString(Long price) {
+    if(price < 500000000)
+      return "0";
+    if(price >= 500000000 && price < 1000000000)
+      return "1";
+    if(price >=1000000000 && price < 1500000000)
+      return "2";
+    if(price >=1500000000 && price <2000000000)
+      return "3";
 
+    return "4";
+  }
   public Product add(Product p){
-
-    JSONObject searchObj = new JSONObject();
 
     //Add product
     Product newProduct =  productRepository.save(p);
@@ -63,30 +76,22 @@ public class ProductService {
       i.setProduct(newProduct);
       imageRepository.save(i);
     }
+
 //    Get list filter from product information
-    HashMap<String, Object> objSearch = new HashMap<String, Object>();
-
-    objSearch.put("streetId", newProduct.getAddress().getStreet().getId());
-    objSearch.put("wardId", newProduct.getAddress().getWard().getId());
-    objSearch.put("districtId", newProduct.getAddress().getDistrict().getId());
-    objSearch.put("provinceCityId", newProduct.getAddress().getProvinceCity().getId());
-
-    List<Filter> list = filterRepository.findAllByContent(objSearch);
-
-    for(Filter c : list){
-      ContactDTO contact = new ContactDTO(c.getUser().getContact());
+    String streetId = p.getAddress().getStreet().getId().toString();
+    String wardId = p.getAddress().getWard().getId().toString();
+    String priceRange = getPriceRangeString(p.getPrice());
+    List<Contact> list = contactRepository.searchContact(streetId, wardId, priceRange);
+    for(Contact c : list){
       RabbitMQMessage  mess = new RabbitMQMessage(
               c.getUser().getName(),
               p.getTitle(),
-              new AddressDTO(p.getAddress()).getAddressString(),
+              new AddressDTO(c.getUser().getAddress()).getAddressString(),
               p.getPrice(),
-              contact.getEmail(),
-              contact.getPhoneNumber()
-              );
+              c.getEmail(),
+              c.getPhoneNumber());
       rabbitMQSender.send(mess);
     }
-
-
 
     return newProduct;
   }

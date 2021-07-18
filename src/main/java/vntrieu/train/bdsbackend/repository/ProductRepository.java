@@ -13,7 +13,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 
   List<Product> findAllBy(Pageable page);
 
-  List<Product> findAllByTitleContaining(String title);
 
   @Query("SELECT p FROM Product  p WHERE p.user.id=?1")
   public List<Product> getByUserId(Long id);
