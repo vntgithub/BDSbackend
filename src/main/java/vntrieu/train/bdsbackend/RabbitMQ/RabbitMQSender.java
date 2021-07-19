@@ -18,7 +18,6 @@ public class RabbitMQSender {
     private String routingkey;
 
     public void send(RabbitMQMessage message) {
-//        rabbitTemplate.convertAndSend(exchange, routingkey, message);
 
         rabbitTemplate.convertAndSend(exchange, routingkey, message);
 
