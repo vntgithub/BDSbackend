@@ -1,6 +1,6 @@
 package vntrieu.train.bdsbackend.controller;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import vntrieu.train.bdsbackend.dto.FilterDTO;
 import vntrieu.train.bdsbackend.model.Filter;
@@ -12,9 +12,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/filter")
 @CrossOrigin(origins = "http://localhost:3000/")
-@AllArgsConstructor
 public class FilterController {
-  private final FilterService filterService;
+  @Autowired
+  private  FilterService filterService;
 
   @GetMapping("/{id}")
   List<FilterDTO> getByUserId(@PathVariable Long id){

@@ -13,14 +13,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    @Value("${RABBITMQ_QUEUE:}")
-    private String queueName;
+    //    @Value("${RABBITMQ_QUEUE:}")
+    private String queueName = "sendMail-queue";
 
-    @Value("${RABBITMQ_EXCHANGE:}")
-    private String exchange;
+    //    @Value("${RABBITMQ_EXCHANGE:}")
+    private String exchange = "sendMail-service-exchange";
 
-    @Value("${RABBITMQ_ROUTINGKEY:}")
-    private String routingkey;
+    //    @Value("${RABBITMQ_ROUTINGKEY:}")
+    private String routingkey = "foo.bar.#";
 
     @Bean
     Queue queue() {

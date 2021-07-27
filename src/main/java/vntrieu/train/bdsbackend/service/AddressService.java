@@ -8,8 +8,8 @@ import vntrieu.train.bdsbackend.repository.AddressRepository;
 
 @Service
 public class AddressService {
-  @Autowired
 
+  @Autowired
   private  AddressRepository repository;
 
   public Address getByUserId(Long id){
@@ -38,6 +38,7 @@ public class AddressService {
   public List<Address> searchByDistrict(Long districtId){
     return repository.searchByDistrict(districtId);
   }
+
   public List<Address> searchByWard(Long wardId){
     return repository.searchByWard(wardId);
   }

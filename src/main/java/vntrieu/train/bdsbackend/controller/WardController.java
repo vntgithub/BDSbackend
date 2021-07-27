@@ -3,18 +3,19 @@ package vntrieu.train.bdsbackend.controller;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vntrieu.train.bdsbackend.dto.WardDTO;
 import vntrieu.train.bdsbackend.model.Ward;
 import vntrieu.train.bdsbackend.service.WardService;
 
-@AllArgsConstructor
 @RestController
 @RequestMapping("/ward")
 @CrossOrigin(origins = "http://localhost:3000/")
 public class WardController {
-  private final WardService wardService;
+  @Autowired
+  private  WardService wardService;
 
   @GetMapping("/{district_id}")
   List<WardDTO> filter(@PathVariable Long district_id){

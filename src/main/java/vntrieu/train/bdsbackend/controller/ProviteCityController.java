@@ -3,19 +3,20 @@ package vntrieu.train.bdsbackend.controller;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vntrieu.train.bdsbackend.dto.ProvinceCityDTO;
 import vntrieu.train.bdsbackend.model.ProvinceCity;
 import vntrieu.train.bdsbackend.service.ProvinceCityService;
 
-@AllArgsConstructor
 @RestController
 @RequestMapping("/province_city")
 @CrossOrigin(origins = "http://localhost:3000/")
 public class ProviteCityController {
 
-  private final ProvinceCityService provinceCityServiceervice;
+  @Autowired
+  private  ProvinceCityService provinceCityServiceervice;
 
   @GetMapping("")
   List<ProvinceCityDTO> getAll(){

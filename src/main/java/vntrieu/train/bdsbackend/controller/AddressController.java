@@ -3,19 +3,20 @@ package vntrieu.train.bdsbackend.controller;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import vntrieu.train.bdsbackend.dto.AddressDTO;
 import vntrieu.train.bdsbackend.dto.ProductDTO;
 import vntrieu.train.bdsbackend.model.Address;
 import vntrieu.train.bdsbackend.service.AddressService;
 
-@AllArgsConstructor
 @RestController
 @RequestMapping("/address")
 @CrossOrigin(origins = "http://localhost:3000/")
 public class AddressController {
 
-  private final AddressService addressService;
+  @Autowired
+  private  AddressService addressService;
 
   @GetMapping("/{user_id}")
   AddressDTO getByUserId(@PathVariable Long user_id) {

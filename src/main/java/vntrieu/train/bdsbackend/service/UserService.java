@@ -1,9 +1,13 @@
 package vntrieu.train.bdsbackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import vntrieu.train.bdsbackend.model.User;
 import vntrieu.train.bdsbackend.repository.UserRepository;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -31,6 +35,10 @@ public class UserService {
   public String delete(Long id){
     repository.deleteById(id);
     return "Deleted!";
+  }
+
+  public List<User> getByPage(Pageable page) {
+      return repository.findAllBy(page);
   }
 
 }

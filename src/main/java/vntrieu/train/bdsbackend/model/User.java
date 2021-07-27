@@ -3,6 +3,7 @@ package vntrieu.train.bdsbackend.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -12,11 +13,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity(name = "person")
 @Data
-@Table(name = "person")
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,5 +43,10 @@ public class User {
   @JoinColumn(name = "contact_id", referencedColumnName = "id")
   private Contact contact;
 
+  @OneToMany(mappedBy = "user")
+  private List<Notification> notificationList;
+
+  @OneToMany(mappedBy = "user")
+  private List<Contract> contracts;
 
 }

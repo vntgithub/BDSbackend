@@ -1,20 +1,15 @@
 package vntrieu.train.bdsbackend.service;
 
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;;
-import vntrieu.train.bdsbackend.RabbitMQ.RabbitMQMessage;
-import vntrieu.train.bdsbackend.RabbitMQ.RabbitMQSender;
-import vntrieu.train.bdsbackend.dto.AddressDTO;
-import vntrieu.train.bdsbackend.dto.ContactDTO;
 import vntrieu.train.bdsbackend.model.*;
 import vntrieu.train.bdsbackend.repository.ContactRepository;
-import vntrieu.train.bdsbackend.repository.FilterRepository;
 import vntrieu.train.bdsbackend.repository.ImageRepository;
+import vntrieu.train.bdsbackend.repository.MessageRepository;
 import vntrieu.train.bdsbackend.repository.ProductRepository;
 
 @Service
@@ -24,36 +19,13 @@ public class ProductService {
   private  ProductRepository productRepository;
 
   @Autowired
-  private ContactRepository contactRepository;
-
-  @Autowired
   private  ImageRepository imageRepository;
 
   @Autowired
-  private  FilterRepository filterRepository;
+  private MessageRepository messageRepository;
 
   @Autowired
-  private  RabbitMQSender rabbitMQSender;
-
-
-
-  public Long getNumberOfPage(){
-    Long numberOfProduct = productRepository.getNumberOfPage();
-    Long n =  numberOfProduct/10;
-    Short m = (short) (numberOfProduct%10);
-    if(m != 0)
-      return n + 1;
-    return n;
-  }
-
-  public List<Product> getProduct(Pageable page){
-    return productRepository.findAllBy(page);
-  }
-
-  public List<Product> getByUserId(Long userId){
-    return productRepository.getByUserId(userId);
-  }
-
+  private ContactRepository contactRepository;
 
   public String getPriceRangeString(Long price) {
     if(price < 500000000)
@@ -64,9 +36,33 @@ public class ProductService {
       return "2";
     if(price >=1500000000 && price <2000000000)
       return "3";
-
     return "4";
   }
+
+  public static Long roudingPage(Long numberOfProduct){
+    Long n =  numberOfProduct/10;
+    Short m = (short) (numberOfProduct%10);
+    if(m != 0)
+      return n + 1;
+    return n;
+  }
+  public Long getNumberOfPage(){
+    return roudingPage(productRepository.getNumberOfPage());
+  }
+
+  public List<Product> getProduct(Pageable page){
+    return productRepository.findAllBy(page);
+  }
+
+  public Long countPageByUserId(Long id){
+    return roudingPage(productRepository.countAllByUser_Id(id));
+
+  }
+
+  public List<Product> getByUserId(Long userId, Pageable page){
+    return productRepository.getByUserId(userId, page);
+  }
+
   public Product add(Product p){
 
     //Add product
@@ -76,23 +72,24 @@ public class ProductService {
       i.setProduct(newProduct);
       imageRepository.save(i);
     }
-
-//    Get list filter from product information
-    String streetId = p.getAddress().getStreet().getId().toString();
-    String wardId = p.getAddress().getWard().getId().toString();
-    String priceRange = getPriceRangeString(p.getPrice());
-    List<Contact> list = contactRepository.searchContact(streetId, wardId, priceRange);
-    for(Contact c : list){
-      RabbitMQMessage  mess = new RabbitMQMessage(
-              c.getUser().getName(),
-              p.getTitle(),
-              new AddressDTO(c.getUser().getAddress()).getAddressString(),
-              p.getPrice(),
-              c.getEmail(),
-              c.getPhoneNumber());
-      rabbitMQSender.send(mess);
+    List<Contact> listContact = contactRepository.searchContact(
+            p.getAddress().getStreet().getId().toString(),
+            p.getAddress().getWard().getId().toString(),
+            getPriceRangeString(p.getPrice())
+    );
+    for(Contact c : listContact){
+      if(messageRepository.existsById(c.getId())){
+        MessageModel updateData = messageRepository.getOne(c.getId());
+        Set<Long> newListIdProduct = updateData.getListProductId();
+        newListIdProduct.add(newProduct.getId());
+        messageRepository.save(updateData);
+      }else {
+        Set<Long> list = new HashSet<Long>();
+        list.add(newProduct.getId());
+        MessageModel newMess = new MessageModel( c, list);
+        messageRepository.save(newMess);
+      }
     }
-
     return newProduct;
   }
 
@@ -108,37 +105,14 @@ public class ProductService {
     return "Deleted!";
   }
 
-  public static List<Product> filterByPriceRange(List<Product> products, Integer priceRange){
-    List<Product> productsAfterFiltered = new ArrayList<Product>();
-    switch (priceRange){
-      case 0:
-        return  products
-                .stream()
-                .filter(item -> item.getPrice() <= 500000000)
-                .collect(Collectors.toList());
-      case 1:
-        return  products
-                .stream()
-                .filter(item -> (item.getPrice() > 500000000)&&(item.getPrice() <= 1000000000))
-                .collect(Collectors.toList());
-      case 2:
-        return   products
-                .stream()
-                .filter(item -> (item.getPrice() > 1000000000)&&(item.getPrice() <= 1500000000))
-                .collect(Collectors.toList());
-      case 3:
-        return   products
-                .stream()
-                .filter(item -> (item.getPrice() > 1500000000)&&(item.getPrice() <=2000000000))
-                .collect(Collectors.toList());
-      default:
-        return  products
-                .stream()
-                .filter(item -> item.getPrice() > 2000000000)
-                .collect(Collectors.toList());
-    }
+  public List<Product> filterByPriceRange(List<Product> products, Long priceStart, Long priceEnd){
+    //List<Product> productsAfterFiltered = new ArrayList<Product>();
+    return  products
+            .stream()
+            .filter(item -> item.getPrice() > priceStart && item.getPrice() <= priceEnd)
+            .collect(Collectors.toList());
   }
-  public static List<Product> filterBySearchSTring(List<Product> products, String searchString){
+  public List<Product> filterBySearchSTring(List<Product> products, String searchString){
 
     List<Product> productsAfterFiltered = new ArrayList<Product>();
     for(Product p : products)
@@ -147,35 +121,32 @@ public class ProductService {
 
      return productsAfterFiltered;
   }
-  public List<Product> search( Integer provinceCityId,
-                               Long districtId,
-                               Long wardId,
-                               Long streetId,
-                               Integer priceRange,
-                               String searchString){
+  public List<Product> search(Integer provinceCityId,
+                              Long districtId,
+                              Long wardId,
+                              Long streetId,
+                              Long priceStart,
+                              Long priceEnd,
+                              String searchString,
+                              Pageable page
+  ){
 
     List<Product> products = null;
 
     if(streetId != null)
-      products = productRepository.searchByStreet(streetId);
+      products = productRepository.findAllByAddress_Street_IdOrderByIdAsc(streetId, page);
     if(wardId != null && products == null)
-      products = productRepository.searchByWard(wardId);
+      products = productRepository.findAllByAddress_Ward_IdOrderByIdAsc(wardId, page);
     if(districtId != null && products == null)
-      products = productRepository.searchByDistrict(districtId);
+      products = productRepository.findAllByAddress_District_IdOrderByIdAsc(districtId, page);
     if(provinceCityId != null && products == null)
-      products = productRepository.searchByCity(provinceCityId);
+      products = productRepository.findAllByAddress_ProvinceCity_IdOrderByIdAsc(provinceCityId, page);
 
-    if(priceRange != null){
+    if(priceStart != null && priceEnd != null){
       if(products == null){
-        switch (priceRange){
-          case 0: products = productRepository.searchByPrice500(); break;
-          case 1: products = productRepository.searchByPrice500_1000(); break;
-          case 2: products = productRepository.searchByPrice1000_1500(); break;
-          case 3: products = productRepository.searchByPrice1500_2000(); break;
-          default: products =  productRepository.searchByPrice2000();
-        }
+        products = productRepository.findAllByPriceBetweenOrderByPriceAsc(priceStart, priceEnd, page);
       }else{
-        products = filterByPriceRange(products, priceRange);
+        products = filterByPriceRange(products, priceStart, priceEnd);
       }
     }
 
@@ -188,6 +159,10 @@ public class ProductService {
     }
 
     return products;
+  }
+
+  public Product getProductById (Long id){
+    return productRepository.findById(id).get();
   }
 
 }

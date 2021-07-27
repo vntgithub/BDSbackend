@@ -4,11 +4,7 @@ package vntrieu.train.bdsbackend.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import vntrieu.train.bdsbackend.model.Content;
-import vntrieu.train.bdsbackend.model.ContentType;
 import vntrieu.train.bdsbackend.model.Filter;
-
-import java.util.Map;
 
 @NoArgsConstructor
 @AllArgsConstructor

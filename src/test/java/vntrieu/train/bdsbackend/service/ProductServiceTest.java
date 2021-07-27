@@ -1,6 +1,7 @@
 package vntrieu.train.bdsbackend.service;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import vntrieu.train.bdsbackend.model.Product;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class ProductServiceTest {
+    @Autowired
     private ProductService productService;
     @Test
     public void filterByPriceRange() {
@@ -26,8 +28,8 @@ public class ProductServiceTest {
         List<Product> data = List.of(p0, p1,p2,p3,p4);
 
         //Filter(0: <=500M, 1: (500,1000], 2: (1000,1500], 3: (1500,2000], 4: (2000, infinity))
-        List<Product> actualResult1 = productService.filterByPriceRange(data, 0);
-        List<Product> actualResult2 = productService.filterByPriceRange(data, 1);
+        List<Product> actualResult1 = productService.filterByPriceRange(data, 0L, 500000000L);
+        List<Product> actualResult2 = productService.filterByPriceRange(data, 500000000L, 1000000000L);
 
         for(Product p : actualResult1){
             assertEquals(true, p.getPrice()<=500000000);

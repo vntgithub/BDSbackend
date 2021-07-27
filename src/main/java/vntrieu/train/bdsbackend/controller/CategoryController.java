@@ -3,6 +3,7 @@ package vntrieu.train.bdsbackend.controller;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vntrieu.train.bdsbackend.dto.CategoryDTO;
@@ -11,9 +12,10 @@ import vntrieu.train.bdsbackend.service.CategoryService;
 @RestController
 @RequestMapping("/category")
 @CrossOrigin(origins = "http://localhost:3000/")
-@AllArgsConstructor
 public class CategoryController {
-  private final CategoryService categoryService;
+
+  @Autowired
+  private  CategoryService categoryService;
 
   @GetMapping
   List<CategoryDTO> getALl(){

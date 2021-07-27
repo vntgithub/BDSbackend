@@ -1,7 +1,6 @@
 package vntrieu.train.bdsbackend.controller;
 
-import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.util.PerformanceSensitive;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,26 +9,25 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import vntrieu.train.bdsbackend.JWT.JwtTokenProvider;
-import vntrieu.train.bdsbackend.dto.AccountDTO;
 import vntrieu.train.bdsbackend.dto.UserDTO;
 import vntrieu.train.bdsbackend.model.Account;
 import vntrieu.train.bdsbackend.model.AccountDetails;
 import vntrieu.train.bdsbackend.model.User;
 import vntrieu.train.bdsbackend.service.AccountService;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
-@AllArgsConstructor
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000/")
 @RequestMapping("/account")
+
 public class AccountController {
 
-    private final AccountService accountService;
+    @Autowired
+    private  AccountService accountService;
+
     @Autowired
     AuthenticationManager authenticationManager;
 

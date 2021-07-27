@@ -2,10 +2,7 @@ package vntrieu.train.bdsbackend.model;
 
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
@@ -22,8 +19,6 @@ import java.util.HashMap;
         ,
         @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 })
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class Filter {
     @Id
@@ -32,7 +27,6 @@ public class Filter {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "id")
-    @ToString.Exclude
     private User user;
 
 

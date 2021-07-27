@@ -1,13 +1,10 @@
 package vntrieu.train.bdsbackend.model;
 
-import java.util.Collection;
 import javax.persistence.*;
 
 import lombok.*;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class District {
   @Id
@@ -21,8 +18,6 @@ public class District {
 
   @ManyToOne
   @JoinColumn(name = "p_c_id")
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
   private ProvinceCity provinceCity;
 
 

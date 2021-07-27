@@ -1,6 +1,8 @@
 package vntrieu.train.bdsbackend.model;
 
+import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,15 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class Product {
   @Id
@@ -73,5 +71,13 @@ public class Product {
   @Column(name = "legal_infor", nullable = false)
   private String legalInfor;
 
+  @OneToMany(mappedBy = "product")
+  private List<Notification> notificationList;
+
+  @Column(name = "date")
+  private LocalDate date;
+
+  @OneToOne(mappedBy = "product")
+  private Contract contract;
 
 }
