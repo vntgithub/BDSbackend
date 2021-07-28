@@ -15,7 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vntrieu.train.bdsbackend.ExcelExport.ProductExcelExport;
+import vntrieu.train.bdsbackend.ExcelExport.ProductExcelExporter;
 import vntrieu.train.bdsbackend.dto.ProductDTO;
 import vntrieu.train.bdsbackend.model.Product;
 import vntrieu.train.bdsbackend.service.ProductService;
@@ -138,7 +138,7 @@ public class ProductController {
       for(Product p : products)
         listProductDTO.add(new ProductDTO(p));
 
-    ProductExcelExport excelExporter = new ProductExcelExport(listProductDTO);
+    ProductExcelExporter excelExporter = new ProductExcelExporter(listProductDTO);
 
     ByteArrayInputStream in = excelExporter.export();
     // return IOUtils.toByteArray(in);

@@ -4,10 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -17,12 +13,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import vntrieu.train.bdsbackend.dto.ProductDTO;
 
 
-public class ProductExcelExport {
+public class ProductExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
     private List<ProductDTO> listProducts;
 
-    public ProductExcelExport(List<ProductDTO> listProducts) {
+    public ProductExcelExporter(List<ProductDTO> listProducts) {
         this.listProducts = listProducts;
         workbook = new XSSFWorkbook();
     }

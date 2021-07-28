@@ -25,7 +25,7 @@ public class User {
   private String name;
 
   @Column(name = "date_of_birth", nullable = false)
-  @JsonFormat(pattern="dd-MM-yyyy")
+  @JsonFormat(pattern="yyyy-MM-dd")
   private LocalDate dateOfBirth;
 
   @Column(name = "gender", nullable = false)

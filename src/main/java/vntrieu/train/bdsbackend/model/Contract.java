@@ -1,7 +1,6 @@
 package vntrieu.train.bdsbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,7 +13,7 @@ public class Contract {
     private Long id;
 
     @Column(name = "date")
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate date;
 
     @OneToOne(fetch = FetchType.LAZY)
