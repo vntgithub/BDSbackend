@@ -14,6 +14,7 @@ import vntrieu.train.bdsbackend.service.ContractService;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +25,9 @@ public class ContractController {
     @Autowired
     private ContractService contractService;
 
-    @PostMapping()
+    @PostMapping
     public String ContractDTO(@RequestBody Contract contract){
+        contract.setDate(LocalDate.now());
         contractService.add(contract);
        return "Done";
     }

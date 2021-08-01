@@ -49,7 +49,6 @@ public class ProductExcelExporter {
         createCell(row, 11, "Funiture", style);
         createCell(row, 12, "Legal information", style);
 
-
     }
 
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {

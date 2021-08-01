@@ -29,7 +29,8 @@ public class UserController {
     return new UserDTO(userService.getById(id));
   }
 
-  @GetMapping("/page/{page}")
+  @GetMapping("/page/{index}")
+  @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
   List<UserDTO> getPage(@PathVariable Integer index){
     Pageable page = PageRequest.of(index, 10);
     List<User> list = userService.getByPage(page);
@@ -37,6 +38,13 @@ public class UserController {
     for(User u : list)
       rs.add(new UserDTO(u));
     return rs;
+  }
+  @GetMapping("/countpage")
+  public Long countPage(){
+    Long rs = userService.countPage();
+    if(rs % 10 != 0)
+      return rs/10 + 1;
+    return rs/10;
   }
 
   @PutMapping
@@ -46,7 +54,7 @@ public class UserController {
 
   @DeleteMapping("/{id}")
   @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-  String delete(@PathVariable Long id){
+  String ban(@PathVariable Long id){
     return userService.delete(id);
   }
 

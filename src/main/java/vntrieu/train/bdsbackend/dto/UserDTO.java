@@ -16,6 +16,7 @@ public class UserDTO {
   private LocalDate dateOfBirth;
   private AddressDTO address;
   private ContactDTO contact;
+  private String role;
 
   public UserDTO(User u){
     this.id = u.getId();

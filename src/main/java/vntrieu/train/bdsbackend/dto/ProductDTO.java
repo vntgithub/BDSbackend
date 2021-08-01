@@ -31,6 +31,7 @@ public class ProductDTO {
   private Short numberOfWC;
   private String funiture;
   private String legalInfor;
+  private  Boolean hasContract;
 
   public ProductDTO(Product p){
     this.id = p.getId();
@@ -51,5 +52,9 @@ public class ProductDTO {
     this.numberOfWC = p.getNumberOfWC();
     this.funiture = p.getFuniture();
     this.legalInfor = p.getLegalInfor();
+    if(p.getContract() != null)
+      this.hasContract = true;
+    else
+      this.hasContract = false;
   }
 }

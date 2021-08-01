@@ -1,6 +1,5 @@
 package vntrieu.train.bdsbackend.service;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,6 +29,8 @@ public class AccountService implements UserDetailsService {
     return new AccountDetails(account);
   }
   public User getByUsername(String username){return accountRepository.getById(username).getUser();}
+
+  public String getRoleName (String username) {return accountRepository.getRoleName(username);}
 
   public User add(Account account){
     String hashedPassword = BCrypt.hashpw(account.getPassword(), BCrypt.gensalt());

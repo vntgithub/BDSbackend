@@ -36,6 +36,7 @@ public class UserService {
     repository.deleteById(id);
     return "Deleted!";
   }
+  public Long countPage (){return repository.count();}
 
   public List<User> getByPage(Pageable page) {
       return repository.findAllBy(page);
